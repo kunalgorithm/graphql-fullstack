@@ -1,0 +1,7 @@
+{
+  "build": {
+    "env": {
+      "MYSQL_DB": "@mysql-db"
+    }
+  }
+}
