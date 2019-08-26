@@ -7,11 +7,14 @@
     "start": "next start"
   },
   "dependencies": {
+    "@apollo/react-hooks": "^3.0.1",
     "@material-ui/core": "^4.3.3",
     "@material-ui/icons": "^4.2.1",
+    "apollo-boost": "^0.4.4",
     "apollo-server-micro": "2.6.7",
     "fontfaceobserver": "^2.1.0",
     "graphql": "14.4.2",
+    "graphql-tag": "^2.10.1",
     "isomorphic-unfetch": "3.0.0",
     "next": "latest",
     "react": "^16.8.6",
