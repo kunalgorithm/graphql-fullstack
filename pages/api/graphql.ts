@@ -1,18 +1,64 @@
-import { ApolloServer, gql } from 'apollo-server-micro';
+import { ApolloServer, gql } from "apollo-server-micro";
+import * as bcrypt from "bcrypt";
+import * as jwt from "jsonwebtoken";
 
 const typeDefs = gql`
   type Query {
     users: [User!]!
   }
+  type Mutation {
+    signup(email: String!, password: String!, name: String): AuthPayload!
+    login(email: String!, password: String!): AuthPayload!
+  }
   type User {
     name: String
+  }
+  type AuthPayload {
+    token: String!
+    user: User!
   }
 `;
 
 const resolvers = {
   Query: {
     users(parent, args, context) {
-      return [{ name: 'Person 1' }, { name: 'Person 2' }];
+      return [{ name: "Person 1" }, { name: "Person 2" }];
+    },
+  },
+  Mutation: {
+    signup: async function signup(parent, { email, name, password }, ctx) {
+      console.log(`Signup() ${name} ${email}`);
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const user = await ctx.prisma.createUser({
+        email,
+        password: hashedPassword,
+      });
+
+      return {
+        token: jwt.sign({ userId: user.id }, process.env.APP_SECRET),
+        user,
+      };
+    },
+    login: async function login(parent, { email, password }, ctx) {
+      console.log(`login()  ${email}`);
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const user = await ctx.prisma.user({ email });
+
+      if (!user) {
+        throw new Error(`No user found for email: ${email}`);
+      }
+
+      const passwordValid = await bcrypt.compare(
+        password,
+        user.password || "password"
+      );
+      if (!passwordValid) {
+        throw new Error("Invalid password");
+      }
+      return {
+        token: jwt.sign({ userId: user.id }, process.env.APP_SECRET),
+        user,
+      };
     },
   },
 };
@@ -25,4 +71,4 @@ export const config = {
   },
 };
 
-export default apolloServer.createHandler({ path: '/api/graphql' });
+export default apolloServer.createHandler({ path: "/api/graphql" });

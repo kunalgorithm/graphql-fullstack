@@ -8,7 +8,7 @@ import ProTip from "../src/ProTip";
 import Link from "../src/Link";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
-import withApollo from "../lib/with-apollo";
+import withApollo from "../src/lib/with-apollo";
 
 const Users = ({}) => {
   const { loading, error, data } = useQuery(

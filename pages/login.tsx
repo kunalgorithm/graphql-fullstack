@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,6 +13,9 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import theme from "../src/theme";
+import { gql } from "apollo-boost";
+import { useMutation } from "@apollo/react-hooks";
+import { loginUser } from "../src/lib/auth";
 
 const useStyles = makeStyles(theme => ({
   "@global": {
@@ -39,9 +42,27 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const LOGIN_MUTATION = gql`
+  mutation Login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      user {
+        email
+        id
+      }
+      token
+    }
+  }
+`;
+
 export default function SignIn() {
   const classes = useStyles(theme);
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [loginMutation, { loading, error, data, client }] = useMutation(
+    LOGIN_MUTATION
+  );
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -52,7 +73,18 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Log in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form
+          className={classes.form}
+          noValidate
+          // onSubmit={e => {
+          //   e.preventDefault();
+          //   e.stopPropagation();
+
+          //   loginMutation({ variables: { email, password } })
+          //     .then(result => loginUser(result.data.login.token, client))
+          //     .catch(err => console.error(err));
+          // }}
+        >
           <TextField
             variant="outlined"
             margin="normal"
@@ -63,6 +95,8 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            value={email}
+            onChange={e => setEmail(e.target.value)}
           />
           <TextField
             variant="outlined"
@@ -74,6 +108,8 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
