@@ -20,7 +20,6 @@ const Users = ({}) => {
       }
     `
   );
-  console.log("data", data);
 
   return (
     <Container maxWidth="sm">
