@@ -6,7 +6,7 @@ import Box from "@material-ui/core/Box";
 import MuiLink from "@material-ui/core/Link";
 import ProTip from "../src/ProTip";
 import Link from "../src/Link";
-./Users
+
 const Index = ({ users }) => (
   <Container maxWidth="sm">
     <Box my={4}>

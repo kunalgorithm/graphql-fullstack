@@ -45,6 +45,15 @@
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
 
+"@apollo/react-ssr@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@apollo/react-ssr/-/react-ssr-3.0.1.tgz#2d54182e378722314ad1b1b4b9ccfffb06a54c89"
+  integrity sha512-eeAaajIH1zbMk+zigNAlEeyVH80ELrsjvRCcQxH80+THgnJx/hgkKfmhG2p1q2Djefyv6VfImAwd4xqX6/LRSA==
+  dependencies:
+    "@apollo/react-common" "^3.0.1"
+    "@apollo/react-hooks" "^3.0.1"
+    tslib "^1.10.0"
+
 "@apollographql/apollo-tools@^0.3.6":
   version "0.3.7"
   resolved "https://registry.yarnpkg.com/@apollographql/apollo-tools/-/apollo-tools-0.3.7.tgz#3bc9c35b9fff65febd4ddc0c1fc04677693a3d40"
