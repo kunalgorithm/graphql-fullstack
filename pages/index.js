@@ -34,8 +34,6 @@ const Index = ({ users }) => (
 );
 
 Index.getInitialProps = async () => {
-  // console.log(process.env);
-
   const response = await fetch(
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:3000/api/graphql'
