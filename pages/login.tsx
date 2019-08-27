@@ -16,6 +16,7 @@ import theme from "../src/theme";
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 import { loginUser } from "../src/lib/auth";
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles(theme => ({
   "@global": {
@@ -63,6 +64,7 @@ export default function SignIn() {
   const [loginMutation, { loading, error, data, client }] = useMutation(
     LOGIN_MUTATION
   );
+  const router = useRouter();
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -76,15 +78,15 @@ export default function SignIn() {
         <form
           className={classes.form}
           noValidate
-          // onSubmit={e => {
-          //   e.preventDefault();
-          //   e.stopPropagation();
+          onSubmit={e => {
+            e.preventDefault();
+            e.stopPropagation();
+            router.push("/dashboard");
 
-          //   loginMutation({ variables: { email, password } })
-          //     .then(result => loginUser(result.data.login.token, client))
-          //     .catch(err => console.error(err));
-          // }}
-        >
+            // loginMutation({ variables: { email, password } })
+            //   .then(result => loginUser(result.data.login.token, client))
+            //   .catch(err => console.error(err));
+          }}>
           <TextField
             variant="outlined"
             margin="normal"

@@ -1,4 +1,4 @@
-({
+{
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -16,5 +16,4 @@
   },
   "exclude": ["node_modules"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/lib/with-apollo.js"]
-},
-"src/lib/init-apollo.js")
+}

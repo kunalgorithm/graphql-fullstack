@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "PORT=3000 NODE_ENV=development next",
     "build": "next build",
+    "now-build": "next build",
     "start": "next start"
   },
   "dependencies": {
