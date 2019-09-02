@@ -9,11 +9,17 @@ const typeDefs = gql`
     users: [User!]!
   }
   type Mutation {
-    signup(email: String!, password: String!, name: String): AuthPayload!
+    signup(
+      email: String!
+      password: String!
+      firstName: String
+      lastName: String
+    ): AuthPayload!
     login(email: String!, password: String!): AuthPayload!
   }
   type User {
-    name: String
+    firstName: String
+    lastName: String
   }
   type AuthPayload {
     token: String!
@@ -23,24 +29,33 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    async users(parent, args, context) {
-      return await photon.users();
+    users(parent, args, context) {
+      return photon.users.findMany({});
     },
   },
   Mutation: {
-    signup: async function signup(parent, { email, name, password }, ctx) {
+    signup: async function signup(
+      parent,
+      { email, name, password, firstName, lastName },
+      ctx
+    ) {
       console.log(`Signup() ${name} ${email}`);
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = await photon.users.create({
         data: {
           email,
           password: hashedPassword,
+          firstName,
+          lastName,
           // password: hashedPassword,
         },
       });
 
       return {
-        token: jwt.sign({ userId: user.id }, process.env.APP_SECRET),
+        token: jwt.sign(
+          { userId: user.id },
+          process.env.APP_SECRET ? process.env.APPSECRET : "appsecret321"
+        ),
         user,
       };
     },
@@ -61,7 +76,10 @@ const resolvers = {
         throw new Error("Invalid password");
       }
       return {
-        token: jwt.sign({ userId: user.id }, process.env.APP_SECRET),
+        token: jwt.sign(
+          { userId: user.id },
+          process.env.APP_SECRET ? process.env.APPSECRET : "appsecret321"
+        ),
         user,
       };
     },

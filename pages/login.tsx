@@ -81,11 +81,11 @@ export default function SignIn() {
           onSubmit={e => {
             e.preventDefault();
             e.stopPropagation();
-            router.push("/dashboard");
+            // router.push("/dashboard");
 
-            // loginMutation({ variables: { email, password } })
-            //   .then(result => loginUser(result.data.login.token, client))
-            //   .catch(err => console.error(err));
+            loginMutation({ variables: { email, password } })
+              .then(result => loginUser(result.data.login.token, client))
+              .catch(err => console.error(err));
           }}>
           <TextField
             variant="outlined"

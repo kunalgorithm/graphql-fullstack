@@ -8,11 +8,12 @@ datasource db {
 }
 
 model User {
-  id       String  @default(cuid()) @id
-  email    String  @unique
-  password String
-  name     String?
-  posts    Post[]
+  id        String  @default(cuid()) @id
+  email     String  @unique
+  password  String
+  firstName String?
+  lastName  String?
+  posts     Post[]
 }
 
 model Post {

@@ -7,7 +7,7 @@ export const loginUser = (token, client) => {
   document.cookie = cookie.serialize("token", token, {
     maxAge: 30 * 24 * 60 * 60, // 30 days
   });
-  redirect({}, "/profile");
+  redirect({}, "/dashboard");
   // TODO Force a reload of all the current queries now that the user is
   // logged in
   // client.cache.reset().then(() => {

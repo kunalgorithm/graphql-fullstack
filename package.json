@@ -2,11 +2,12 @@
   "name": "api-routes-graphql",
   "version": "1.0.0",
   "scripts": {
-    "dev": "PORT=3000 NODE_ENV=development next",
+    "dev": "source .env && PORT=3000 NODE_ENV=development next",
     "build": "next build",
     "now-build": "next build",
     "start": "next start",
-    "postinstall": "prisma2 generate",
+    "generate": "prisma2 generate",
+    "postinstall": "yarn generate",
     "lift:save": "prisma2 lift save",
     "lift:up": "prisma2 lift up"
   },

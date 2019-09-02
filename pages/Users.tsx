@@ -4,7 +4,7 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import MuiLink from "@material-ui/core/Link";
-import ProTip from "../components/ProTip";
+
 import Link from "../components/Link";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
@@ -15,7 +15,8 @@ const Users = ({}) => {
     gql`
       query {
         users {
-          name
+          firstName
+          lastName
         }
       }
     `
@@ -31,7 +32,7 @@ const Users = ({}) => {
         <div>
           {data &&
             data.users &&
-            data.users.map((user, i) => <div key={i}>{user.name}</div>)}
+            data.users.map((user, i) => <div key={i}>{user.firstName}</div>)}
         </div>
       </Box>
     </Container>
