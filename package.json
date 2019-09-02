@@ -6,7 +6,9 @@
     "build": "next build",
     "now-build": "next build",
     "start": "next start",
-    "postinstall": "prisma2 generate"
+    "postinstall": "prisma2 generate",
+    "lift:save": "prisma2 lift save",
+    "lift:up": "prisma2 lift up"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.0.1",
@@ -23,6 +25,7 @@
     "isomorphic-unfetch": "3.0.0",
     "jsonwebtoken": "^8.5.1",
     "next": "latest",
+    "prisma2": "^2.0.0-preview-9.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "recharts": "^1.7.1",

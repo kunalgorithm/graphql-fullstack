@@ -4567,6 +4567,11 @@ postcss-value-parser@^3.3.0:
   resolved "https://registry.yarnpkg.com/postcss-value-parser/-/postcss-value-parser-3.3.1.tgz#9ff822547e2893213cf1c30efa51ac5fd1ba8281"
   integrity sha512-pISE66AbVkp4fDQ7VHBwRNXzAAKJjw4Vw7nWI/+Q3vuly7SNfgYXvm6i5IgFylHGK5sP/xHAbB7N49OS4gWNyQ==
 
+prisma2@^2.0.0-preview-9.1:
+  version "2.0.0-preview-9.1"
+  resolved "https://registry.yarnpkg.com/prisma2/-/prisma2-2.0.0-preview-9.1.tgz#b87359de0854a26ebee506bc92c35cfd53355bcd"
+  integrity sha512-nSlPBmmdi7CrFJ+HtumJJak9XepYNfAAd4ZMSB6tbVhIlyXwzzwOVNRyzKQrFXeRalv/hkXnItzU7+A5bT4BYQ==
+
 private@^0.1.6:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/private/-/private-0.1.8.tgz#2381edb3689f7a53d653190060fcf822d2f368ff"
