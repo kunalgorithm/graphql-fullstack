@@ -12,10 +12,10 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import theme from "../src/theme";
+import theme from "../components/theme";
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
-import { loginUser } from "../src/lib/auth";
+import { loginUser } from "../components/lib/auth";
 import { useRouter } from "next/router";
 
 const useStyles = makeStyles(theme => ({

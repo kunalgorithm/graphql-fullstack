@@ -5,7 +5,8 @@
     "dev": "PORT=3000 NODE_ENV=development next",
     "build": "next build",
     "now-build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "postinstall": "prisma2 generate"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.0.1",

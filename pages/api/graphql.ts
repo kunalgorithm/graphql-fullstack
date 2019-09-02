@@ -1,6 +1,8 @@
 import { ApolloServer, gql } from "apollo-server-micro";
 import * as bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
+import Photon from "@generated/photon";
+const photon = new Photon();
 
 const typeDefs = gql`
   type Query {
@@ -21,8 +23,8 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    users(parent, args, context) {
-      return [{ name: "Person 1" }, { name: "Person 2" }];
+    async users(parent, args, context) {
+      return await photon.users();
     },
   },
   Mutation: {

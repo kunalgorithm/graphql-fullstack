@@ -4,11 +4,11 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import MuiLink from "@material-ui/core/Link";
-import ProTip from "../src/ProTip";
-import Link from "../src/Link";
+import ProTip from "../components/ProTip";
+import Link from "../components/Link";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
-import withApollo from "../src/lib/with-apollo";
+import withApollo from "../components/lib/with-apollo";
 
 const Users = ({}) => {
   const { loading, error, data } = useQuery(
