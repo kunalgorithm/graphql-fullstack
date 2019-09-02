@@ -31,9 +31,12 @@ const resolvers = {
     signup: async function signup(parent, { email, name, password }, ctx) {
       console.log(`Signup() ${name} ${email}`);
       const hashedPassword = await bcrypt.hash(password, 10);
-      const user = await ctx.prisma.createUser({
-        email,
-        password: hashedPassword,
+      const user = await photon.users.create({
+        data: {
+          email,
+          password: hashedPassword,
+          // password: hashedPassword,
+        },
       });
 
       return {
@@ -44,7 +47,7 @@ const resolvers = {
     login: async function login(parent, { email, password }, ctx) {
       console.log(`login()  ${email}`);
       const hashedPassword = await bcrypt.hash(password, 10);
-      const user = await ctx.prisma.user({ email });
+      const user = await photon.users.findOne({ where: { email } });
 
       if (!user) {
         throw new Error(`No user found for email: ${email}`);
