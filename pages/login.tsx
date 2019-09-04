@@ -17,6 +17,7 @@ import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 import { loginUser } from "../components/lib/auth";
 import { useRouter } from "next/router";
+import withApollo from "../components/lib/with-apollo";
 
 const useStyles = makeStyles(theme => ({
   "@global": {
@@ -48,14 +49,13 @@ const LOGIN_MUTATION = gql`
     login(email: $email, password: $password) {
       user {
         email
-        id
       }
       token
     }
   }
 `;
 
-export default function SignIn() {
+function SignIn() {
   const classes = useStyles(theme);
 
   const [email, setEmail] = useState("");
@@ -142,3 +142,5 @@ export default function SignIn() {
     </Container>
   );
 }
+
+export default withApollo(SignIn);

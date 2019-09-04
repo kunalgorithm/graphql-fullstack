@@ -1,5 +1,5 @@
 import { ApolloServer, gql } from "apollo-server-micro";
-import * as bcrypt from "bcrypt";
+import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 import Photon from "@generated/photon";
 const photon = new Photon();
