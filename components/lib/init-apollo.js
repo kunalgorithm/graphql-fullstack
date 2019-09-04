@@ -13,7 +13,7 @@ function create(initialState) {
       uri:
         process.env.NODE_ENV === "development"
           ? "http://localhost:3000/api/graphql"
-          : `https://api-routes-graphql-app.kunalgorithm.now.sh/api/graphql`, // Server URL (must be absolute)
+          : `https://graphql-fullstack.now.sh/api/graphql`, // Server URL (must be absolute)
       credentials: "same-origin", // Additional fetch() options like `credentials` or `headers`
       // Use fetch() polyfill on the server
       fetch: !isBrowser && fetch,
