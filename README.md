@@ -1,6 +1,6 @@
 # GraphQL Fullstack Web Application 
 
-A web application complete with authentication, a graphql api, and styles. 
+A monorepo web application with authentication, a graphQL api, database access, and material-ui styling. 
 
 ## Tech stack 
 
