@@ -4,7 +4,9 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import MuiLink from "@material-ui/core/Link";
-import Link from "../components/Link";
+
+import NextLink from "next/link";
+import { Copyright } from "../components/dashboard/Dashboard";
 
 const Index = ({ users }) => (
   <Container maxWidth="sm">
@@ -12,13 +14,20 @@ const Index = ({ users }) => (
       <Typography variant="h4" component="h1" gutterBottom>
         GraphQL Fullstack Web App
       </Typography>
-      <Link href="/login" color="secondary">
-        Login
-      </Link>{" "}
+      <NextLink href="/login">
+        <MuiLink style={{ cursor: "pointer" }} color="secondary">
+          Login
+        </MuiLink>
+      </NextLink>{" "}
       or{" "}
-      <Link href="/signup" color="secondary">
-        Sign up
-      </Link>
+      <NextLink href="/signup">
+        <MuiLink style={{ cursor: "pointer" }} color="secondary">
+          Sign up
+        </MuiLink>
+      </NextLink>
+    </Box>
+    <Box>
+      <Copyright />
     </Box>
   </Container>
 );
