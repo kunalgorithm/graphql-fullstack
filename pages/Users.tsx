@@ -5,7 +5,6 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import MuiLink from "@material-ui/core/Link";
 
-import Link from "../components/Link";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import withApollo from "../components/lib/with-apollo";
