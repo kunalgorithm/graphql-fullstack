@@ -1,4 +1,4 @@
-# GraphQL Serverless Web Application 
+# GraphQL Fullstack Web Application 
 
 ## How to use
 

@@ -10,7 +10,7 @@ const Index = ({ users }) => (
   <Container maxWidth="sm">
     <Box my={4}>
       <Typography variant="h4" component="h1" gutterBottom>
-        GraphQL Serverless Web App
+        GraphQL Fullstack Web App
       </Typography>
       <Link href="/login" color="secondary">
         Login
