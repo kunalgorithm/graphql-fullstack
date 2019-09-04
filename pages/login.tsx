@@ -18,6 +18,7 @@ import { useMutation } from "@apollo/react-hooks";
 import { loginUser } from "../components/lib/auth";
 import { useRouter } from "next/router";
 import withApollo from "../components/lib/with-apollo";
+import Snackbar from "../components/Snackbar";
 
 const useStyles = makeStyles(theme => ({
   "@global": {
@@ -67,7 +68,7 @@ function SignIn() {
   const router = useRouter();
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
+      {error && <Snackbar message={error.message} />}
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -125,6 +126,7 @@ function SignIn() {
             className={classes.submit}>
             Log In
           </Button>
+
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
