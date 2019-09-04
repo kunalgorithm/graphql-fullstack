@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -14,6 +14,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import theme from "../components/theme";
 import { useRouter } from "next/router";
+import Snackbar from "../components/Snackbar";
+import { gql } from "apollo-boost";
+import { useMutation } from "@apollo/react-hooks";
+import { loginUser } from "../components/lib/auth";
+import withApollo from "../components/lib/with-apollo";
 
 const useStyles = makeStyles(theme => ({
   "@global": {
@@ -40,13 +45,48 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignUp() {
+const SIGNUP_MUTATION = gql`
+  mutation Signup(
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $password: String!
+  ) {
+    signup(
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      password: $password
+    ) {
+      user {
+        firstName
+        lastName
+        email
+      }
+      token
+    }
+  }
+`;
+
+function SignUp() {
   const router = useRouter();
   const classes = useStyles(theme);
 
+  const [email, setEmail] = useState("");
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
+  const [password, setPassword] = useState("");
+
+  const [signupMutation, { loading, error, data, client }] = useMutation(
+    SIGNUP_MUTATION
+  );
+
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
+      {error && <Snackbar message={error.message} />}
+
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -60,7 +100,11 @@ export default function SignUp() {
           onSubmit={e => {
             e.preventDefault();
             e.stopPropagation();
-            router.push("/dashboard");
+            signupMutation({
+              variables: { firstName, lastName, email, password },
+            })
+              .then(result => loginUser(result.data.signup.token, client))
+              .catch(err => console.error(err));
           }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -73,6 +117,8 @@ export default function SignUp() {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                value={firstName}
+                onChange={e => setFirstName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -84,6 +130,8 @@ export default function SignUp() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                value={lastName}
+                onChange={e => setLastName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -95,6 +143,8 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -107,6 +157,8 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -138,3 +190,5 @@ export default function SignUp() {
     </Container>
   );
 }
+
+export default withApollo(SignUp);

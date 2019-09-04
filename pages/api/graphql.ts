@@ -12,14 +12,15 @@ const typeDefs = gql`
     signup(
       email: String!
       password: String!
-      firstName: String
-      lastName: String
+      firstName: String!
+      lastName: String!
     ): AuthPayload!
     login(email: String!, password: String!): AuthPayload!
   }
   type User {
     firstName: String
     lastName: String
+    email: String
   }
   type AuthPayload {
     token: String!
@@ -36,18 +37,17 @@ const resolvers = {
   Mutation: {
     signup: async function signup(
       parent,
-      { email, name, password, firstName, lastName },
+      { firstName, lastName, email, password },
       ctx
     ) {
-      console.log(`Signup() ${name} ${email}`);
+      console.log(`Signup() ${firstName} ${lastName} ${email}`);
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = await photon.users.create({
         data: {
-          email,
-          password: hashedPassword,
           firstName,
           lastName,
-          // password: hashedPassword,
+          email,
+          password: hashedPassword,
         },
       });
 
@@ -61,7 +61,6 @@ const resolvers = {
     },
     login: async function login(parent, { email, password }, ctx) {
       console.log(`login()  ${email}`);
-      const hashedPassword = await bcrypt.hash(password, 10);
       const user = await photon.users.findOne({ where: { email } });
 
       if (!user) {
