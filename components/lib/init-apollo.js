@@ -1,5 +1,23 @@
-import { ApolloClient, InMemoryCache, HttpLink } from "apollo-boost";
+import {
+  ApolloClient,
+  InMemoryCache,
+  HttpLink,
+  ApolloLink,
+} from "apollo-boost";
 import fetch from "isomorphic-unfetch";
+import { onError } from "apollo-link-error";
+
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (process.env.NODE_ENV !== "development") return;
+  if (graphQLErrors)
+    graphQLErrors.map(({ message, locations, path }) =>
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+      )
+    );
+
+  if (networkError) console.log(`[Network error]: ${networkError}`);
+});
 
 let apolloClient = null;
 
@@ -9,15 +27,18 @@ function create(initialState) {
   return new ApolloClient({
     connectToDevTools: isBrowser,
     ssrMode: !isBrowser, // Disables forceFetch on the server (so queries are only run once)
-    link: new HttpLink({
-      uri:
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:3000/api/graphql"
-          : `https://graphql-fullstack.now.sh/api/graphql`, // Server URL (must be absolute)
-      credentials: "same-origin", // Additional fetch() options like `credentials` or `headers`
-      // Use fetch() polyfill on the server
-      fetch: !isBrowser && fetch,
-    }),
+    link: ApolloLink.from([
+      errorLink,
+      new HttpLink({
+        uri:
+          process.env.NODE_ENV === "development"
+            ? "http://localhost:3000/api/graphql"
+            : `https://graphql-fullstack.now.sh/api/graphql`, // Server URL (must be absolute)
+        credentials: "same-origin", // Additional fetch() options like `credentials` or `headers`
+        // Use fetch() polyfill on the server
+        fetch: !isBrowser && fetch,
+      }),
+    ]),
     cache: new InMemoryCache().restore(initialState || {}),
   });
 }
