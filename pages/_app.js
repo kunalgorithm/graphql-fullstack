@@ -20,7 +20,7 @@ class MyApp extends App {
     return (
       <>
         <Head>
-          <title>GraphQL Fullstack Web App</title>
+          <title>Cosign</title>
         </Head>
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}

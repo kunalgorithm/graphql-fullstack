@@ -8,14 +8,15 @@ import MuiLink from "@material-ui/core/Link";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import withApollo from "../components/lib/with-apollo";
+import { Avatar } from "@material-ui/core";
 
 const Users = ({}) => {
   const { loading, error, data } = useQuery(
     gql`
       query {
         users {
-          firstName
-          lastName
+          name
+          imageUrl
         }
       }
     `
@@ -31,7 +32,12 @@ const Users = ({}) => {
         <div>
           {data &&
             data.users &&
-            data.users.map((user, i) => <div key={i}>{user.firstName} {user.lastName}</div>)}
+            data.users.map((user, i) => (
+              <div key={i}>
+                <Avatar alt={user.name} src={user.imageUrl} />
+                {user.name}{" "}
+              </div>
+            ))}
         </div>
       </Box>
     </Container>

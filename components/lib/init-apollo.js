@@ -32,8 +32,8 @@ function create(initialState) {
       new HttpLink({
         uri:
           process.env.NODE_ENV === "development"
-            ? "http://localhost:3000/api/graphql"
-            : `https://graphql-fullstack.now.sh/api/graphql`, // Server URL (must be absolute)
+            ? "http://localhost:4000/"
+            : `https://cosign-api.onrender.com/`, // Server URL (must be absolute)
         credentials: "same-origin", // Additional fetch() options like `credentials` or `headers`
         // Use fetch() polyfill on the server
         fetch: !isBrowser && fetch,
