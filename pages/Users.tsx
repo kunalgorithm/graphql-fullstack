@@ -31,7 +31,7 @@ const Users = ({}) => {
         <div>
           {data &&
             data.users &&
-            data.users.map((user, i) => <div key={i}>{user.firstName}</div>)}
+            data.users.map((user, i) => <div key={i}>{user.firstName} {user.lastName}</div>)}
         </div>
       </Box>
     </Container>
