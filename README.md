@@ -1,4 +1,4 @@
-# GraphQL Fullstack Web Application 
+# Cosign Web
 
 A monorepo web application with authentication, a graphQL api, database access, and material-ui styling. 
 

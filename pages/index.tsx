@@ -6,13 +6,12 @@ import Box from "@material-ui/core/Box";
 import MuiLink from "@material-ui/core/Link";
 
 import NextLink from "next/link";
-import { Copyright } from "../components/dashboard/Dashboard";
 
 const Index = ({ users }) => (
   <Container maxWidth="sm">
     <Box my={4}>
       <Typography variant="h4" component="h1" gutterBottom>
-        GraphQL Fullstack Web App
+        Cosign
       </Typography>
       <NextLink href="/login">
         <MuiLink style={{ cursor: "pointer" }} color="secondary">
@@ -26,9 +25,7 @@ const Index = ({ users }) => (
         </MuiLink>
       </NextLink>
     </Box>
-    <Box>
-      <Copyright />
-    </Box>
+    <Box></Box>
   </Container>
 );
 
