@@ -2,11 +2,13 @@ import { ApolloServer, gql } from "apollo-server-micro";
 import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 import Photon from "@generated/photon";
+import { getUserId } from "./util";
 const photon = new Photon();
 
 const typeDefs = gql`
   type Query {
     users: [User!]!
+    me: User
   }
   type Mutation {
     signup(
@@ -33,6 +35,10 @@ const resolvers = {
     users(parent, args, context) {
       return photon.users.findMany({});
     },
+    me(parent, args, context) {
+      const id = getUserId(context);
+      return photon.users.findOne({ where: { id } });
+    },
   },
   Mutation: {
     signup: async function signup(
@@ -40,7 +46,8 @@ const resolvers = {
       { firstName, lastName, email, password },
       ctx
     ) {
-      console.log(`Signup() ${firstName} ${lastName} ${email}`);
+      process.env.NODE_ENV === "development" &&
+        console.log(`DEBUG: Signup() ${firstName} ${lastName} ${email}`);
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = await photon.users.create({
         data: {
@@ -60,7 +67,8 @@ const resolvers = {
       };
     },
     login: async function login(parent, { email, password }, ctx) {
-      console.log(`login()  ${email}`);
+      process.env.NODE_ENV === "development" &&
+        console.log(`DEBUG: login()  ${email}`);
       const user = await photon.users.findOne({ where: { email } });
 
       if (!user) {
@@ -85,7 +93,14 @@ const resolvers = {
   },
 };
 
-const apolloServer = new ApolloServer({ typeDefs, resolvers });
+const apolloServer = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: request => ({
+    ...request,
+    photon,
+  }),
+});
 
 export const config = {
   api: {

@@ -4,6 +4,14 @@ import Head from "next/head";
 import { getDataFromTree } from "@apollo/react-ssr";
 import { getDisplayName } from "next-server/dist/lib/utils";
 import { ApolloProvider } from "@apollo/react-hooks";
+var cookie = require("cookie");
+
+function parseCookies(req, options = {}) {
+  return cookie.parse(
+    req ? req.headers.cookie || "" : document.cookie,
+    options
+  );
+}
 
 const withApollo = PageComponent => {
   return class extends React.Component {
@@ -19,7 +27,12 @@ const withApollo = PageComponent => {
 
       // Run all GraphQL queries in the component tree
       // and extract the resulting data
-      const apolloClient = initApollo({});
+      const apolloClient = initApollo(
+        {},
+        {
+          getToken: () => parseCookies(ctx.req).token,
+        }
+      );
       if (typeof window === "undefined") {
         try {
           // Run all GraphQL queries
@@ -54,7 +67,13 @@ const withApollo = PageComponent => {
 
     constructor(props) {
       super(props);
-      this.apolloClient = props.apolloClient || initApollo(props.apolloState);
+      this.apolloClient =
+        props.apolloClient ||
+        initApollo(props.apolloState, {
+          getToken: () => {
+            return parseCookies().token;
+          },
+        });
     }
 
     render() {
