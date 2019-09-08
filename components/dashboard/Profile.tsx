@@ -42,6 +42,8 @@ const Profile = ({}) => {
               <>
                 {" "}
                 {data.me.firstName} {data.me.lastName}
+                <br />
+                {data.me.email}
               </>
             ) : (
               <h4>You are not logged in.</h4>
