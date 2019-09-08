@@ -30,9 +30,43 @@ yarn
 yarn dev
 ```
 
-Deploy it to the cloud with [now](https://zeit.co/now) ([download](https://zeit.co/download))
+# Deploy
 
+Deploy to the cloud with [now](https://zeit.co/now) ([download](https://zeit.co/download))
+
+Install the `now` CLI
+
+```bash
+npm install --global now 
+```
+
+Then deploy using 
 ```bash
 now
 ```
+
+
+
+## Allocate and connect to a production database 
+
+The boilerplate stores data by interfacing from Prisma2 to SQLite, a file-based relational database meant for development and testing. The development data is stored in `dev.db`, configured by the following in `prisma/schema.prisma`
+
+```
+datasource db {
+  provider = "sqlite"
+  url      = "file:dev.db"
+}
+```
+
+ Before supporting real users and data on your production app, consider creating a MySQL database on [AWS](https://aws.amazon.com) or other managed database provider. Prisma2 also supports Postgres and MongoDB, but the majority of their examples use MySQL, leading me to suspect it may be a more thoroughly tested integration. 
+
+Once created, change the datastore value to 
+
+```
+datasource db {
+  provider = "mysql"
+  url      = "mysql://YOUR_MYSQL_LINK"
+}
+```
+
 
