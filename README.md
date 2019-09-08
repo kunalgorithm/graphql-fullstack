@@ -92,7 +92,7 @@ now
 
 
 
-## Allocate and connect to a production database 
+## Connect to a production database 
 
 The boilerplate stores data by interfacing from Prisma2 to SQLite, a file-based relational database meant for development and testing. The development data is stored in `dev.db`, configured by the following in `prisma/schema.prisma`
 
