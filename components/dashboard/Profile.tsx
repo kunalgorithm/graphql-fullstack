@@ -31,22 +31,25 @@ const Profile = ({}) => {
     `
   );
   if (loading) return <div>Loading...</div>;
+  if (data)
+    return (
+      <Container maxWidth="sm">
+        <Box my={4}>
+          <Title>Profile</Title>
 
-  return (
-    <Container maxWidth="sm">
-      <Box my={4}>
-        <Title>Profile</Title>
-
-        <Typography className={classes.profile}>
-          {data && data.me ? (
-            data.me.firstName
-          ) : (
-            <h4>You are not logged in.</h4>
-          )}
-        </Typography>
-      </Box>
-    </Container>
-  );
+          <Typography className={classes.profile}>
+            {data && data.me ? (
+              <>
+                {" "}
+                {data.me.firstName} {data.me.lastName}
+              </>
+            ) : (
+              <h4>You are not logged in.</h4>
+            )}
+          </Typography>
+        </Box>
+      </Container>
+    );
 };
 
 export default withApollo(Profile);
