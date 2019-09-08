@@ -161,12 +161,6 @@ function SignUp() {
                 onChange={e => setPassword(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
           </Grid>
           {/* <Link href="/dashboard"> */}
           <Button
