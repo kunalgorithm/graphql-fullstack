@@ -1,12 +1,13 @@
 import cookie from "cookie";
 import Router from "next/router";
-import gql from "apollo-boost";
+import gql, { ApolloClient } from "apollo-boost";
 
 export const loginUser = (token, client) => {
   // USE COOKIES FOR SSR: Store the token in cookie
   document.cookie = cookie.serialize("token", token, {
     maxAge: 30 * 24 * 60 * 60, // 30 days
   });
+  client.clearStore();
   redirect({}, "/dashboard");
   // TODO Force a reload of all the current queries now that the user is
   // logged in
@@ -15,12 +16,11 @@ export const loginUser = (token, client) => {
   // });
   return;
 };
-export const logoutUser = client => {
+export const logoutUser = (client: ApolloClient<any>) => {
   redirect({}, "/");
   document.cookie = cookie.serialize("token", "");
-  // client.resetStore();
+  client.clearStore();
 
-  // client.cache.reset();
   return;
 };
 
@@ -36,26 +36,27 @@ export const redirect = (context, target) => {
   }
 };
 
-export const checkLoggedIn = apolloClient =>
+export const checkLoggedIn = (apolloClient: ApolloClient<any>) =>
   apolloClient
-    .query({
-      query: null,
-      // gql`
-      //   query me {
-      //     me {
-      //       id
-      //       email
-      //     }
-      //   }
-      // `,
-    })
+    .readQuery({ query: null })
+
+    // .query({
+    //   query: gql`
+    //     query me {
+    //       me {
+    //         id
+    //         email
+    //       }
+    //     }
+    //   `,
+    // })
     .then(({ data }) => {
-      // console.log('user data', data);
+      console.log("user data", data);
 
       return { loggedInUser: data };
     })
     .catch(() => {
       // Fail gracefully
-      // console.log('no user data');
+      console.log("no user data");
       return { loggedInUser: {} };
     });

@@ -5,7 +5,7 @@ import Photon from "@generated/photon";
 import { getUserId } from "./util";
 const photon = new Photon();
 
-const typeDefs = gql`
+export const typeDefs = gql`
   type Query {
     users: [User!]!
     me: User
