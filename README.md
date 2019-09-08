@@ -2,6 +2,8 @@
 
 A monorepo web application with authentication, a graphQL api, database access, and material-ui styling. 
 
+Visit the demo at https://graphql-fullstack.now.sh
+
 ## Tech stack 
 
 - [Nextjs](https://github.com/zeit/next.js) - server-side rendering, file-based routing in the `pages` directory, and serverless build of of graphql API within `pages/api/graphql.ts` using [API Routes](https://github.com/zeit/next.js#api-routes)
