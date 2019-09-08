@@ -32,7 +32,7 @@ const Profile = ({}) => {
     `
   );
   if (loading) return <div>Loading...</div>;
-  if (!data || !data.me) return <h4>You are not logged in.</h4>;
+  if (!data || !data.me) return <Title>You are not logged in.</Title>;
   return (
     <Container maxWidth="sm">
       <Box my={1}>
