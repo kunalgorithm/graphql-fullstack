@@ -1,6 +1,6 @@
-# GraphQL Fullstack Web Application 
+# GraphQL Fullstack Boilerplate
 
-A monorepo web application with authentication, a graphQL api, database access, and material-ui styling. 
+A monorepo web application boilerplate with authentication, a graphQL api, database access, and material-ui styling. 
 
 Visit the demo at https://graphql-fullstack.now.sh
 
