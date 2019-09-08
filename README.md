@@ -4,15 +4,20 @@ A monorepo web application boilerplate with authentication, a graphQL api, datab
 
 Visit the demo at https://graphql-fullstack.now.sh
 
-## Tech stack 
+# Tech stack 
 
-- [Nextjs](https://github.com/zeit/next.js) - server-side rendering, file-based routing in the `pages` directory, and serverless build of of graphql API within `pages/api/graphql.ts` using [API Routes](https://github.com/zeit/next.js#api-routes)
-- [Prisma 2](https://github.com/prisma/prisma2) - Next-generation database access and migration tools. *NOTE: Prisma 2 is currently in the preview phase and is not yet ready for use in production.*
-- [Material UI](https://material-ui.com) - Material UI components, CSS-in-JS styles solutions, and theme. 
-- [ZEIT now](https://now.sh) - serverless monorepo deployment
+🌚 [Next 9](https://github.com/zeit/next.js) - server-side rendering, file-based routing in the `pages` directory, and serverless build of of graphql API within `pages/api/graphql.ts` using [API Routes](https://github.com/zeit/next.js#api-routes)
+
+🦋 [Apollo](https://www.apollographql.com/docs/react/hooks-migration/) (React Hooks API) - GraphQL client for queries and mutations.
+
+🦄 [Prisma 2](https://github.com/prisma/prisma2) - Next-generation database access and migration tools. *NOTE: Prisma 2 is currently in the preview phase and is not yet ready for use in production.*
+
+💅 [Material UI](https://material-ui.com) - Material UI components, CSS-in-JS styles solutions, and theme. 
+
+▲ [ZEIT now](https://now.sh) - serverless monorepo deployment
 
 
-## How to use
+# How to use
 
 
 Clone the repository
@@ -27,10 +32,46 @@ install dependencies, then run the development server:
 ```bash
 npm install
 npm run dev
-# or
-yarn
-yarn dev
 ```
+
+## Create new data types 
+Add new data fields by using the *lift*, prisma2's built-in database migration tool.
+
+Install the prisma2 CLI 
+
+```
+npm install -g prisma2 
+```
+
+Then open `schema.prisma` in the `prisma` directory. Add a new optional field, _githubUrl_ to a data type, _User_. 
+
+```
+model User {
+  id        String  @default(cuid()) @id
+  email     String  @unique
+  password  String
+  firstName String
+  lastName  String
+}
+```
+becomes 
+```
+model User {
+  id         String  @default(cuid()) @id
+  email      String  @unique
+  password   String
+  firstName  String
+  lastName   String
+  githubUrl  String?
+}
+```
+
+Note that `?` signals that the field is optional. 
+
+Then, preview the migration by running `prisma2 lift save "Added githubUrl to User"` with an appropriate message, and run the migration with `prisma2 lift up`. Finally, generate a new photon client to accomodate the updated datamodel by running `prisma2 generate`. 
+
+
+
 
 # Deploy
 
