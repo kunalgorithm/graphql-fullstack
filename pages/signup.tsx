@@ -162,7 +162,7 @@ function SignUp() {
               />
             </Grid>
           </Grid>
-          {/* <Link href="/dashboard"> */}
+
           <Button
             type="submit"
             fullWidth
@@ -171,7 +171,7 @@ function SignUp() {
             className={classes.submit}>
             Sign Up
           </Button>
-          {/* </Link> */}
+
           <Grid container justify="flex-end">
             <Grid item>
               <Link href="/login" variant="body2">

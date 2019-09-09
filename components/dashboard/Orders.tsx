@@ -93,7 +93,7 @@ export default function Orders() {
         </TableBody>
       </Table>
       <div className={classes.seeMore}>
-        <Link color="primary" href="/dashboard">
+        <Link color="primary" href="/app">
           See more orders
         </Link>
       </div>

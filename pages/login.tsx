@@ -82,7 +82,6 @@ function SignIn() {
           onSubmit={e => {
             e.preventDefault();
             e.stopPropagation();
-            // router.push("/dashboard");
 
             loginMutation({ variables: { email, password } })
               .then(result => loginUser(result.data.login.token, client))
