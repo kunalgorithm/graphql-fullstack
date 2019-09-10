@@ -1,12 +1,13 @@
-import fetch from "isomorphic-unfetch";
 import React from "react";
+
+// global imports
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import MuiLink from "@material-ui/core/Link";
-
 import NextLink from "next/link";
-import { Copyright } from "../components/dashboard/Dashboard";
+
+import { Copyright } from "../components/dashboard/Copyright";
 
 const Index = ({ users }) => (
   <Container maxWidth="sm">

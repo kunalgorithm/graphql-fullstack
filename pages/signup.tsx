@@ -17,8 +17,8 @@ import { useRouter } from "next/router";
 import Snackbar from "../components/Snackbar";
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
-import { loginUser } from "../components/lib/auth";
-import withApollo from "../components/lib/with-apollo";
+import { loginUser } from "../components/auth";
+import withApollo from "../components/apollo/with-apollo";
 
 const useStyles = makeStyles(theme => ({
   "@global": {
