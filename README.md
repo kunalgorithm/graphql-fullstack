@@ -4,6 +4,14 @@ A monorepo web application boilerplate with authentication, a graphQL api, datab
 
 Visit the demo at https://graphql-fullstack.now.sh
 
+# Features 
+- Deploy a full-featured production-ready web application in less than 60 seconds. 
+- Allow users to sign up, log in, log out, and view their profiles. 
+- Includes a splash page, login page, sign up page, and dashboard. 
+- Uses prebuilt commonly-used components, including a sidebar, top navigation bar, animated line graph with [Recharts](http://recharts.org/en-US/), and [Material Icons](https://material.io/resources/icons/).
+- Uses Zeit's [Zero Config Deployments](https://zeit.co/blog/zero-config). It just works. 
+
+
 # Tech stack 
 
 🤖 [Typescript](https://www.typescriptlang.org) - static types, used throughout the client and server (especially handy for the auto-generated prisma2 client).
@@ -19,7 +27,7 @@ Visit the demo at https://graphql-fullstack.now.sh
 ▲ [ZEIT now](https://now.sh) - serverless monorepo deployment
 
 
-# How to use
+# Quick Start 
 
 
 Clone the repository
@@ -34,6 +42,21 @@ install dependencies, then run the development server:
 ```bash
 npm install
 npm run dev
+```
+
+# Deploy
+
+Deploy to the cloud with [now](https://zeit.co/now) ([download](https://zeit.co/download))
+
+Install the `now` CLI
+
+```bash
+npm install --global now 
+```
+
+Then deploy using 
+```bash
+now
 ```
 
 ## Create new data types 
@@ -71,24 +94,6 @@ model User {
 Note that `?` signals that the field is optional. 
 
 Then, preview the migration by running `prisma2 lift save "Added githubUrl to User"` with an appropriate message, and run the migration with `prisma2 lift up`. Finally, generate a new photon client to accomodate the updated datamodel by running `prisma2 generate`. 
-
-
-
-
-# Deploy
-
-Deploy to the cloud with [now](https://zeit.co/now) ([download](https://zeit.co/download))
-
-Install the `now` CLI
-
-```bash
-npm install --global now 
-```
-
-Then deploy using 
-```bash
-now
-```
 
 
 
