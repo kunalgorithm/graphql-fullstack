@@ -2,6 +2,7 @@ node_modules
 .next
 migrations
 .env
+.DS_Store
 
 ### Node ###
 # Logs

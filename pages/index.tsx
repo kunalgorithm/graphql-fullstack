@@ -20,10 +20,16 @@ const Index = ({ users }) => (
           Login
         </MuiLink>
       </NextLink>{" "}
-      or{" "}
+      ,{" "}
       <NextLink href="/signup">
         <MuiLink style={{ cursor: "pointer" }} color="secondary">
           Sign up
+        </MuiLink>
+      </NextLink>
+      ,{" or "}
+      <NextLink href="/app">
+        <MuiLink style={{ cursor: "pointer" }} color="secondary">
+          skip to the Dashboard.
         </MuiLink>
       </NextLink>
     </Box>
