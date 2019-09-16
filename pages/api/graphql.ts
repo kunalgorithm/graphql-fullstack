@@ -1,8 +1,6 @@
 import { ApolloServer, gql } from "apollo-server-micro";
-import * as bcrypt from "bcryptjs";
-import * as jwt from "jsonwebtoken";
 import Photon from "@generated/photon";
-import { getUserId } from "./util";
+import { getUserId, signup, login } from "./util";
 const photon = new Photon();
 
 export const typeDefs = gql`
@@ -41,55 +39,8 @@ const resolvers = {
     },
   },
   Mutation: {
-    signup: async function signup(
-      parent,
-      { firstName, lastName, email, password },
-      ctx
-    ) {
-      process.env.NODE_ENV === "development" &&
-        console.log(`DEBUG: Signup() ${firstName} ${lastName} ${email}`);
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const user = await photon.users.create({
-        data: {
-          firstName,
-          lastName,
-          email,
-          password: hashedPassword,
-        },
-      });
-
-      return {
-        token: jwt.sign(
-          { userId: user.id },
-          process.env.APP_SECRET ? process.env.APPSECRET : "appsecret321"
-        ),
-        user,
-      };
-    },
-    login: async function login(parent, { email, password }, ctx) {
-      process.env.NODE_ENV === "development" &&
-        console.log(`DEBUG: login()  ${email}`);
-      const user = await photon.users.findOne({ where: { email } });
-
-      if (!user) {
-        throw new Error(`No user found for email: ${email}`);
-      }
-
-      const passwordValid = await bcrypt.compare(
-        password,
-        user.password || "password"
-      );
-      if (!passwordValid) {
-        throw new Error("Invalid password");
-      }
-      return {
-        token: jwt.sign(
-          { userId: user.id },
-          process.env.APP_SECRET ? process.env.APPSECRET : "appsecret321"
-        ),
-        user,
-      };
-    },
+    signup,
+    login,
   },
 };
 
