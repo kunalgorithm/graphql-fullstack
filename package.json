@@ -1,5 +1,10 @@
 {
   "name": "graphql-fullstack",
+  "homepage": "graphql-fullstack.now.sh",
+  "author": {
+    "name": "Kunal Shah",
+    "email": "me@kunal.sh"
+  },
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
@@ -27,7 +32,7 @@
     "isomorphic-unfetch": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
     "next": "latest",
-    "prisma2": "^2.0.0-preview-11",
+    "prisma2": "^2.0.0-preview016.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "recharts": "^1.7.1"

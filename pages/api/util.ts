@@ -1,5 +1,5 @@
 import * as jwt from "jsonwebtoken";
-import Photon from "@generated/photon";
+import { Photon } from "@generated/photon";
 import * as bcrypt from "bcryptjs";
 
 export interface Context {

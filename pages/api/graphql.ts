@@ -1,5 +1,5 @@
 import { ApolloServer, gql } from "apollo-server-micro";
-import Photon from "@generated/photon";
+import { Photon } from "@generated/photon";
 import { getUserId, signup, login } from "./util";
 const photon = new Photon();
 
