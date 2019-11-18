@@ -64,7 +64,7 @@ function SignIn() {
   const [loginMutation, { error, client }] = useMutation(LOGIN_MUTATION);
   return (
     <Container component="main" maxWidth="xs">
-      {error && <Snackbar message={error.message} />}
+      {error && <Snackbar message="This doesnt work yet 🙁" />}
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
