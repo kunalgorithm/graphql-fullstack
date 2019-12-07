@@ -1,7 +1,8 @@
 import { ApolloServer, gql } from "apollo-server-micro";
-import { Photon } from "@generated/photon";
+import { Prisma } from "../../prisma/generated/prisma-client";
 import { getUserId, signup, login } from "./util";
-const photon = new Photon();
+
+const prisma = new Prisma();
 
 export const typeDefs = gql`
   type Query {
@@ -31,17 +32,17 @@ export const typeDefs = gql`
 const resolvers = {
   Query: {
     users(parent, args, context) {
-      return photon.users.findMany({});
+      return prisma.users();
     },
     me(parent, args, context) {
       const id = getUserId(context);
-      return photon.users.findOne({ where: { id } });
-    },
+      return prisma.user({ id });
+    }
   },
   Mutation: {
     signup,
-    login,
-  },
+    login
+  }
 };
 
 const apolloServer = new ApolloServer({
@@ -49,14 +50,14 @@ const apolloServer = new ApolloServer({
   resolvers,
   context: request => ({
     ...request,
-    photon,
-  }),
+    prisma
+  })
 });
 
 export const config = {
   api: {
-    bodyParser: false,
-  },
+    bodyParser: false
+  }
 };
 
 export default apolloServer.createHandler({ path: "/api/graphql" });
