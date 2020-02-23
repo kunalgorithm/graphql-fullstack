@@ -66,8 +66,8 @@ export async function signup(
     data: {
       id: numUsers,
       name: firstName + lastName,
-      email
-      // password: hashedPassword
+      email,
+      password: hashedPassword
     }
   });
 
