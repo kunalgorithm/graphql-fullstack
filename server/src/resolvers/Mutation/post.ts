@@ -1,43 +1,31 @@
-import { getUserId, Context } from '../../utils'
+import { getUserId, Context } from "../../utils";
 
 export const post = {
   async createDraft(parent, { title, content }, ctx: Context, info) {
-    const userId = getUserId(ctx)
-    return ctx.prisma.createPost({
-      title,
-      content,
-      author: {
-        connect: { id: userId },
-      },
-    })
-  },
+    const userId = getUserId(ctx);
+    const numPosts = await ctx.prisma.posts.count();
 
-  async publish(parent, { id }, ctx: Context, info) {
-    const userId = getUserId(ctx)
-    const postExists = await ctx.prisma.$exists.post({
-      id,
-      author: { id: userId },
-    })
-    if (!postExists) {
-      throw new Error(`Post not found or you're not the author`)
-    }
-
-    return ctx.prisma.updatePost({
-      where: { id },
-      data: { published: true },
-    })
+    return ctx.prisma.posts.create({
+      data: {
+        post_id: numPosts,
+        title,
+        content,
+        author_id: {
+          connect: { id: userId }
+        }
+      }
+    });
   },
 
   async deletePost(parent, { id }, ctx: Context, info) {
-    const userId = getUserId(ctx)
-    const postExists = await ctx.prisma.$exists.post({
-      id,
-      author: { id: userId },
-    })
+    const userId = getUserId(ctx);
+    const postExists = await ctx.prisma.posts.findOne({
+      where: { post_id: id }
+    });
     if (!postExists) {
-      throw new Error(`Post not found or you're not the author`)
+      throw new Error(`Post not found or you're not the author`);
     }
 
-    return ctx.prisma.deletePost({ id })
-  },
-}
+    return ctx.prisma.posts.delete({ where: { post_id: id } });
+  }
+};

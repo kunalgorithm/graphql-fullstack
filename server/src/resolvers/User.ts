@@ -1,7 +1,7 @@
-import { Context } from '../utils'
+import { Context } from "../utils";
 
 export const User = {
   posts: ({ id }, args, ctx: Context) => {
-    return ctx.prisma.user({ id }).posts()
-  },
-}
+    return ctx.prisma.users.findOne({ where: { id } }).posts();
+  }
+};
