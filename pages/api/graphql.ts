@@ -1,8 +1,8 @@
 import { ApolloServer, gql } from "apollo-server-micro";
-import { Prisma } from "../../prisma/generated/prisma-client";
+import { PrismaClient } from "@prisma/client";
 import { getUserId, signup, login } from "./util";
 
-const prisma = new Prisma();
+const prisma = new PrismaClient();
 
 export const typeDefs = gql`
   type Query {
@@ -32,11 +32,11 @@ export const typeDefs = gql`
 const resolvers = {
   Query: {
     users(parent, args, context) {
-      return prisma.users();
+      return prisma.users.findMany();
     },
     me(parent, args, context) {
       const id = getUserId(context);
-      return prisma.user({ id });
+      return prisma.users.findOne({ where: { user_id: id } });
     }
   },
   Mutation: {

@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model posts {
+  content    String?
+  created_at DateTime?
+  post_id    Int       @id
+  title      String    @default("")
+  author_id  users?
+}
+
+model profiles {
+  bio        String?
+  profile_id Int     @id
+  user_id    users
+}
+
+model spatial_ref_sys {
+  auth_name String?
+  auth_srid Int?
+  proj4text String?
+  srid      Int     @id
+  srtext    String?
+}
+
+model users {
+  email    String     @default("") @unique
+  id       Int        @id
+  name     String?
+  password String?
+  posts    posts[]
+  profiles profiles[]
+}

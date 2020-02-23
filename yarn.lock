@@ -927,6 +927,11 @@
     prop-types "^15.7.2"
     react-is "^16.8.6"
 
+"@prisma/client@2.0.0-preview022":
+  version "2.0.0-preview022"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.0.0-preview022.tgz#89c95b2ba17d151edb5891f0a114a2b000ed4e02"
+  integrity sha512-VVjwodKA7f/xIw704ZP5aAmaVXbcOa0g69E0RWDsMc/mSJlQyBjUtAnQy1QPvjaEA2V8+x+A85zW5JwrIs6qQg==
+
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@protobufjs/aspromise/-/aspromise-1.1.2.tgz#9b8b0cc663d669a7d8f6f5d0893a14d348f30fbf"
@@ -4746,10 +4751,10 @@ prisma-generate-schema@1.34.10:
     popsicle "10"
     prisma-datamodel "1.34.10"
 
-prisma2@^2.0.0-preview016.1:
-  version "2.0.0-preview016.1"
-  resolved "https://registry.yarnpkg.com/prisma2/-/prisma2-2.0.0-preview016.1.tgz#6083fe7afd052420d4f9099c9ddd0613defcdf74"
-  integrity sha512-Zp1nRE8OdEQo+EuwEVkXc0JbayFM8lDoTv9BbTdItQ/HMwu1qoQ1/LNqPI8htEXd262F9w03QG5pBGEtgIkWEg==
+prisma2@2.0.0-preview022:
+  version "2.0.0-preview022"
+  resolved "https://registry.yarnpkg.com/prisma2/-/prisma2-2.0.0-preview022.tgz#959770a89696004411785cfb27a76ebc3eb889aa"
+  integrity sha512-esfFlVwGr/q5AoZFT+mf5FF+4bKYLIoqgfTNsrsodKzWnYR/JoTme2rO7FjM1U1jp80rCiX8RbcAvl6o/TG5zg==
 
 private@^0.1.6:
   version "0.1.8"

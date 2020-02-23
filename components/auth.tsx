@@ -16,10 +16,10 @@ export const loginUser = (token, client) => {
   // });
   return;
 };
-export const logoutUser = (client: ApolloClient<any>) => {
+export const logoutUser = (client?: ApolloClient<any>) => {
   redirect({}, "/");
   document.cookie = cookie.serialize("token", "");
-  client.clearStore();
+  if (client) client.clearStore();
 
   return;
 };

@@ -1,9 +1,9 @@
 import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcryptjs";
-import { Prisma } from "../../prisma/generated/prisma-client";
+import { PrismaClient } from "@prisma/client";
 
 export interface Context {
-  prisma: Prisma;
+  prisma: PrismaClient;
   req: any;
 }
 
@@ -13,7 +13,7 @@ export function getUserId(ctx: Context) {
     if (Authorization) {
       const token = Authorization.replace("Bearer ", "");
       const { userId } = jwt.verify(token, "appsecret321") as {
-        userId: string;
+        userId: number;
       };
       return userId;
     }
@@ -31,7 +31,7 @@ export class AuthError extends Error {
 export async function login(parent, { email, password }, ctx) {
   process.env.NODE_ENV === "development" &&
     console.log(`DEBUG: login()  ${email}`);
-  const user = await ctx.prisma.user({ email });
+  const user = await ctx.prisma.users.findOne({ email });
 
   if (!user) {
     throw new Error(`No user found for email: ${email}`);
@@ -61,16 +61,19 @@ export async function signup(
   process.env.NODE_ENV === "development" &&
     console.log(`DEBUG: Signup() ${firstName} ${lastName} ${email}`);
   const hashedPassword = await bcrypt.hash(password, 10);
-  const user = await ctx.prisma.createUser({
-    firstName,
-    lastName,
-    email,
-    password: hashedPassword
+  const numUsers = await ctx.prisma.users.count();
+  const user = await ctx.prisma.users.create({
+    data: {
+      user_id: numUsers,
+      name: firstName + lastName,
+      email
+      // password: hashedPassword
+    }
   });
 
   return {
     token: jwt.sign(
-      { userId: user.id },
+      { userId: user.user_id },
       process.env.APP_SECRET ? process.env.APPSECRET : "appsecret321"
     ),
     user
