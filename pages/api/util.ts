@@ -64,7 +64,7 @@ export async function signup(
   const numUsers = await ctx.prisma.users.count();
   const user = await ctx.prisma.users.create({
     data: {
-      user_id: numUsers,
+      id: numUsers,
       name: firstName + lastName,
       email
       // password: hashedPassword
@@ -73,7 +73,7 @@ export async function signup(
 
   return {
     token: jwt.sign(
-      { userId: user.user_id },
+      { userId: user.id },
       process.env.APP_SECRET ? process.env.APPSECRET : "appsecret321"
     ),
     user

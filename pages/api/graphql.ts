@@ -36,7 +36,7 @@ const resolvers = {
     },
     me(parent, args, context) {
       const id = getUserId(context);
-      return prisma.users.findOne({ where: { user_id: id } });
+      return prisma.users.findOne({ where: { id } });
     }
   },
   Mutation: {
