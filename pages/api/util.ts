@@ -28,9 +28,10 @@ export class AuthError extends Error {
   }
 }
 
-export async function login(parent, { email, password }, ctx) {
+export async function login(parent, { email, password }, ctx: Context) {
   process.env.NODE_ENV === "development" &&
     console.log(`DEBUG: login()  ${email}`);
+
   const user = await ctx.prisma.user({ email });
 
   if (!user) {
