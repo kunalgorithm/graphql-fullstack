@@ -128,4 +128,4 @@ type User {
 ```
 
 # Need help? 
-hmu on twitter [@kunalsh22](https://twitter.com/kunalsh22)
+Send me a DM on twitter! [@kunalgorithm](https://twitter.com/kunalgorithm)
