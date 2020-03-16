@@ -12,30 +12,35 @@ import { useStyles } from "./useStyles";
 export function TopNavBar({ open, handleDrawerOpen }) {
   const classes = useStyles({});
   return (
-    <AppBar
-      position="absolute"
-      className={clsx(classes.appBar, open && classes.appBarShift)}>
-      <Toolbar className={classes.toolbar}>
-        <IconButton
-          edge="start"
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          className={clsx(
-            classes.menuButton,
-            open && classes.menuButtonHidden
-          )}>
-          <MenuIcon />
-        </IconButton>
-        <Typography
-          component="h1"
-          variant="h6"
-          color="inherit"
-          noWrap
-          className={classes.title}>
-          Dashboard
-        </Typography>
-      </Toolbar>
-    </AppBar>
+    <nav x-data="{ open: true }" className="bg-gray-800">
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+      </div>
+    </nav>
+
+    // <AppBar
+    //   position="absolute"
+    //   className={clsx(classes.appBar, open && classes.appBarShift)}>
+    //   <Toolbar className={classes.toolbar}>
+    //     <IconButton
+    //       edge="start"
+    //       color="inherit"
+    //       aria-label="open drawer"
+    //       onClick={handleDrawerOpen}
+    //       className={clsx(
+    //         classes.menuButton,
+    //         open && classes.menuButtonHidden
+    //       )}>
+    //       <MenuIcon />
+    //     </IconButton>
+    //     <Typography
+    //       component="h1"
+    //       variant="h6"
+    //       color="inherit"
+    //       noWrap
+    //       className={classes.title}>
+    //       Dashboard
+    //     </Typography>
+    //   </Toolbar>
+    // </AppBar>
   );
 }

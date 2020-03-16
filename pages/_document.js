@@ -20,10 +20,10 @@ class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
-          {/* <script
+          <script
             src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.0.1/dist/alpine.js"
             defer
-          ></script> */}
+          ></script>
         </Head>
         <body>
           <Main />

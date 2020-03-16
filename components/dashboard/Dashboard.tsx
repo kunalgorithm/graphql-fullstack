@@ -36,7 +36,7 @@ export default function Dashboard() {
       <CssBaseline />
 
       <TopNavBar open={open} handleDrawerOpen={handleDrawerOpen} />
-      <Drawer
+      {/* <Drawer
         variant="permanent"
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
@@ -49,7 +49,7 @@ export default function Dashboard() {
         </div>
         <Divider />
         <List>{mainListItems}</List>
-      </Drawer>
+      </Drawer> */}
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
