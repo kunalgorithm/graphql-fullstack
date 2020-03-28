@@ -25,7 +25,9 @@ function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [loginMutation, { error, client }] = useMutation(LOGIN_MUTATION);
+  const [loginMutation, { error, client, loading }] = useMutation(
+    LOGIN_MUTATION
+  );
   return (
     <div>
       {error && <Snackbar message="This doesnt work yet 🙁" />}
@@ -44,17 +46,19 @@ function SignIn() {
           }}
         >
           <div>
-            <input value={email} onChange={e => setEmail(e.target.value)} />
+            <Input value={email} onChange={e => setEmail(e.target.value)} />
           </div>
           <div>
-            <input
+            <Input
               type="password"
               value={password}
               onChange={e => setPassword(e.target.value)}
             />
           </div>
           <div>
-            <button type="submit">Log In</button>
+            <Button htmlType="submit" type="default" loading={loading}>
+              Log In
+            </Button>
           </div>
 
           <Link href="/signup">

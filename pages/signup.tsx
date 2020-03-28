@@ -7,6 +7,7 @@ import { useMutation } from "@apollo/react-hooks";
 import { loginUser } from "../components/auth";
 import withApollo from "../components/apollo/with-apollo";
 import Link from "next/link";
+import { Input, Button } from "antd";
 
 const SIGNUP_MUTATION = gql`
   mutation Signup(
@@ -64,32 +65,34 @@ function SignUp() {
           }}
         >
           <div>
-            <input
+            <Input
               value={firstName}
               onChange={e => setFirstName(e.target.value)}
             />
           </div>
 
           <div>
-            <input
+            <Input
               value={lastName}
               onChange={e => setLastName(e.target.value)}
             />
           </div>
 
           <div>
-            <input value={email} onChange={e => setEmail(e.target.value)} />
+            <Input value={email} onChange={e => setEmail(e.target.value)} />
           </div>
 
           <div>
-            <input
+            <Input
               value={password}
               onChange={e => setPassword(e.target.value)}
             />
           </div>
 
           <div>
-            <button type="submit">Sign Up</button>
+            <Button htmlType="submit" type="default" loading={loading}>
+              Sign Up
+            </Button>
           </div>
 
           <Link href="/login">

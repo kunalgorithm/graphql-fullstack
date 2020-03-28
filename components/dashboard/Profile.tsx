@@ -3,6 +3,7 @@ import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import withApollo from "../apollo/with-apollo";
+import { Input, Button } from "antd";
 
 import { logoutUser } from "../auth";
 
@@ -30,7 +31,7 @@ const Profile = ({}) => {
           <br />
           {data.me.email}
           <br />
-          <button onClick={() => logoutUser(client)}>Log Out</button>
+          <Button onClick={() => logoutUser(client)}>Log Out</Button>
         </div>
       </div>
     </div>
