@@ -29,8 +29,10 @@ function SignIn() {
   return (
     <div>
       {error && <Snackbar message="This doesnt work yet 🙁" />}
+
+      <h3>Log in</h3>
+
       <div>
-        <div>Log in</div>
         <form
           noValidate
           onSubmit={e => {
@@ -41,13 +43,19 @@ function SignIn() {
               .catch(err => console.error(err));
           }}
         >
-          <input value={email} onChange={e => setEmail(e.target.value)} />
-          <input
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-          />
-          <button type="submit">Log In</button>
+          <div>
+            <input value={email} onChange={e => setEmail(e.target.value)} />
+          </div>
+          <div>
+            <input
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+            />
+          </div>
+          <div>
+            <button type="submit">Log In</button>
+          </div>
 
           <Link href="/signup">
             <a>Don't have an account? Sign Up</a>

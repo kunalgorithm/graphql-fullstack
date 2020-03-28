@@ -63,18 +63,34 @@ function SignUp() {
               .catch(err => console.error(err));
           }}
         >
-          <input
-            value={firstName}
-            onChange={e => setFirstName(e.target.value)}
-          />
+          <div>
+            <input
+              value={firstName}
+              onChange={e => setFirstName(e.target.value)}
+            />
+          </div>
 
-          <input value={lastName} onChange={e => setLastName(e.target.value)} />
+          <div>
+            <input
+              value={lastName}
+              onChange={e => setLastName(e.target.value)}
+            />
+          </div>
 
-          <input value={email} onChange={e => setEmail(e.target.value)} />
+          <div>
+            <input value={email} onChange={e => setEmail(e.target.value)} />
+          </div>
 
-          <input value={password} onChange={e => setPassword(e.target.value)} />
+          <div>
+            <input
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+            />
+          </div>
 
-          <button type="submit">Sign Up</button>
+          <div>
+            <button type="submit">Sign Up</button>
+          </div>
 
           <Link href="/login">
             <a>Already have an account? Log in</a>

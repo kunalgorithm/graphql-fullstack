@@ -4,6 +4,7 @@ import Head from "next/head";
 
 //@ts-ignore
 import "antd/dist/antd.css";
+import "../global.scss";
 class MyApp extends App {
   componentDidMount() {
     // Remove the server-side injected CSS.
