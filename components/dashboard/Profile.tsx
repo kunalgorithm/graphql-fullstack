@@ -1,24 +1,12 @@
 import React from "react";
-import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import Box from "@material-ui/core/Box";
+
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import withApollo from "../apollo/with-apollo";
-import { makeStyles } from "@material-ui/core/styles";
-import Title from "./Title";
-import { logoutUser } from "../auth";
-import theme from "../theme";
 
-const useStyles = makeStyles({
-  profile: {
-    flex: 1,
-  },
-});
+import { logoutUser } from "../auth";
 
 const Profile = ({}) => {
-  const classes = useStyles(theme);
   const { loading, error, data, client } = useQuery(
     gql`
       query {
@@ -31,22 +19,21 @@ const Profile = ({}) => {
     `
   );
   if (loading) return <div>Loading...</div>;
-  if (!data || !data.me) return <Title>You are not logged in.</Title>;
+  if (!data || !data.me) return <h1>You are not logged in.</h1>;
   return (
-    <Container maxWidth="sm">
-      <Box my={1}>
-        <Title>Profile</Title>
+    <div>
+      <div>
+        <h1>Profile</h1>
 
-        <Typography className={classes.profile}>
-          {" "}
+        <div>
           {data.me.firstName} {data.me.lastName}
           <br />
           {data.me.email}
           <br />
-          <Button onClick={() => logoutUser(client)}>Log Out</Button>
-        </Typography>
-      </Box>
-    </Container>
+          <button onClick={() => logoutUser(client)}>Log Out</button>
+        </div>
+      </div>
+    </div>
   );
 };
 

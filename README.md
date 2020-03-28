@@ -6,7 +6,7 @@ A monorepo web application boilerplate with authentication, a graphQL api, datab
 
 # But Why
 
-When building a new project, choosing a technology stack, configuring it, wiring it all together, and figuring out how to dpeloy it properly tends to take far more time that building and shipping features (the important *and* fun part). This boilerplate starts you off with an app that already works, so you can get right to the good stuff.
+When building a new project, choosing a technology stack, configuring it, wiring it all together, and figuring out how to dpeloy it properly tends to take far more time that building and shipping features (the important _and_ fun part). This boilerplate starts you off with an app that already works, so you can get right to the good stuff.
 
 # Features
 
@@ -19,7 +19,6 @@ When building a new project, choosing a technology stack, configuring it, wiring
 🤖‍‍ Uses prebuilt commonly-used components, including a sidebar, top navigation bar, animated line graph with [Recharts](http://recharts.org/en-US/), and [Material Icons](https://material.io/resources/icons/).
 
 ☁️ [Zero Config Deployments](https://zeit.co/blog/zero-config). It just works 🔥
-
 
 # Quick Start
 
@@ -52,7 +51,6 @@ Then deploy using
 now
 ```
 
-
 # Tech stack
 
 🤖 [Typescript](https://www.typescriptlang.org) - static types, used throughout the client and server (especially handy for the auto-generated prisma2 client).
@@ -61,17 +59,15 @@ now
 
 🦋 [Apollo](https://www.apollographql.com/docs/react/hooks-migration/) (React Hooks API) - GraphQL client for queries and mutations.
 
-🦄 [Prisma](https://prisma.io) - Next-generation database access and migration tools. 
+🦄 [Prisma](https://prisma.io) - Next-generation database access and migration tools.
 
 💅 [Material UI](https://material-ui.com) - Material UI components, CSS-in-JS styles solutions, and theme.
 
 ▲ [ZEIT now](https://now.sh) - serverless monorepo deployment
 
-
-# Development 
+# Development
 
 ## Create new data types
-
 
 Install the prisma CLI
 
@@ -96,21 +92,21 @@ type User {
   id: ID! @id @unique
   email: String!  @unique
   password: String!
-  githubUrl: String 
++ githubUrl: String
 }
 ```
 
 Note that `!` signals that the field is required.
 
-### Run the database migration 
+### Run the database migration
 
-Once you've made the change to `datamodel.graphql`, create the migration by running `prisma deploy`, which applied a migration to synchronize changes with the database and generates a new prisma client to access it. 
+Once you've made the change to `datamodel.graphql`, create the migration by running `prisma deploy`, which applied a migration to synchronize changes with the database and generates a new prisma client to access it.
 
-### Make it available to the frontend. 
+### Make it available to the frontend.
 
-Now that you've added a new field to your database and made it available to the _server_, you need to make it available to your _client_ by defining it within the graphQL endpoint's type definitions.  
+Now that you've added a new field to your database and made it available to the _server_, you need to make it available to your _client_ by defining it within the graphQL endpoint's type definitions.
 
-Open the API route at `pages/api/graphql.ts` and extend 
+Open the API route at `pages/api/graphql.ts` and extend
 
 ```
 type User {
@@ -118,14 +114,15 @@ type User {
 }
 ```
 
-to 
+to
 
 ```
 type User {
   ...
-  graphqlUrl: String
++ graphqlUrl: String
 }
 ```
 
-# Need help? 
+# Need help?
+
 Send me a DM on twitter! [@kunalgorithm](https://twitter.com/kunalgorithm)

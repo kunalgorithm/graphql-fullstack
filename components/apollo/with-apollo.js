@@ -2,7 +2,7 @@ import React from "react";
 import initApollo from "./init-apollo";
 import Head from "next/head";
 import { getDataFromTree } from "@apollo/react-ssr";
-import { getDisplayName } from "next-server/dist/lib/utils";
+
 import { ApolloProvider } from "@apollo/react-hooks";
 var cookie = require("cookie");
 
@@ -15,8 +15,6 @@ function parseCookies(req, options = {}) {
 
 const withApollo = PageComponent => {
   return class extends React.Component {
-    static displayName = `withApollo(${getDisplayName(PageComponent)})`;
-
     static async getInitialProps(ctx) {
       const { AppTree } = ctx;
 
@@ -30,7 +28,7 @@ const withApollo = PageComponent => {
       const apolloClient = initApollo(
         {},
         {
-          getToken: () => parseCookies(ctx.req).token,
+          getToken: () => parseCookies(ctx.req).token
         }
       );
       if (typeof window === "undefined") {
@@ -40,7 +38,7 @@ const withApollo = PageComponent => {
             <AppTree
               pageProps={{
                 ...pageProps,
-                apolloClient,
+                apolloClient
               }}
             />
           );
@@ -61,7 +59,7 @@ const withApollo = PageComponent => {
 
       return {
         ...pageProps,
-        apolloState,
+        apolloState
       };
     }
 
@@ -72,7 +70,7 @@ const withApollo = PageComponent => {
         initApollo(props.apolloState, {
           getToken: () => {
             return parseCookies().token;
-          },
+          }
         });
     }
 

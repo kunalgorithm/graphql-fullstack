@@ -1,10 +1,9 @@
 import React from "react";
 import App, { Container } from "next/app";
 import Head from "next/head";
-import { ThemeProvider } from "@material-ui/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import theme from "../components/theme";
 
+//@ts-ignore
+import "antd/dist/antd.css";
 class MyApp extends App {
   componentDidMount() {
     // Remove the server-side injected CSS.
@@ -22,11 +21,11 @@ class MyApp extends App {
         <Head>
           <title>GraphQL Fullstack Web App</title>
         </Head>
-        <ThemeProvider theme={theme}>
+        <>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
+          {/* <CssBaseline /> */}
           <Component {...pageProps} />
-        </ThemeProvider>
+        </>
       </>
     );
   }

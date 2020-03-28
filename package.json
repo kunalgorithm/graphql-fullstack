@@ -16,8 +16,7 @@
   "dependencies": {
     "@apollo/react-hooks": "^3.1.0",
     "@apollo/react-ssr": "^3.1.0",
-    "@material-ui/core": "^4.4.1",
-    "@material-ui/icons": "^4.2.1",
+    "antd": "^4.0.4",
     "apollo-boost": "^0.4.4",
     "apollo-link-context": "^1.0.19",
     "apollo-server-micro": "2.6.7",
@@ -27,12 +26,13 @@
     "graphql-tag": "^2.10.1",
     "isomorphic-unfetch": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
-    "next": "latest",
+    "next": "^9.3.2",
     "prisma-client-lib": "^1.34.10",
     "prisma2": "^2.0.0-preview016.1",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "recharts": "^1.7.1"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "recharts": "^1.7.1",
+    "sass": "^1.26.3"
   },
   "devDependencies": {
     "@types/react": "^16.9.2",
