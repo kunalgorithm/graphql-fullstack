@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
 import { useRouter } from "next/router";
-import Snackbar from "../components/Snackbar";
+
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 import { loginUser } from "../components/auth";
 import withApollo from "../components/apollo/with-apollo";
 import Link from "next/link";
-import { Input, Button } from "antd";
+import { Input, Button, message } from "antd";
 
 const SIGNUP_MUTATION = gql`
   mutation Signup(
@@ -45,11 +45,10 @@ function SignUp() {
   const [signupMutation, { loading, error, data, client }] = useMutation(
     SIGNUP_MUTATION
   );
+  if (error) message.error(error.message);
 
   return (
     <div>
-      {error && <Snackbar message="This doesnt work yet 🙁" />}
-
       <div>
         <div>Sign up</div>
         <form

@@ -6,8 +6,8 @@ import { useMutation } from "@apollo/react-hooks";
 // local imports
 import { loginUser } from "../components/auth";
 import withApollo from "../components/apollo/with-apollo";
-import Snackbar from "../components/Snackbar";
-import { Input, Button } from "antd";
+
+import { Input, Button, message } from "antd";
 import Link from "next/link";
 
 const LOGIN_MUTATION = gql`
@@ -28,10 +28,10 @@ function SignIn() {
   const [loginMutation, { error, client, loading }] = useMutation(
     LOGIN_MUTATION
   );
+  if (error) message.error(error.message);
+
   return (
     <div>
-      {error && <Snackbar message="This doesnt work yet 🙁" />}
-
       <h3>Log in</h3>
 
       <div>
