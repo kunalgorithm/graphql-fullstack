@@ -23,9 +23,6 @@ const LOGIN_MUTATION = gql`
 `;
 
 function SignIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   const [loginMutation, { error, client, loading }] = useMutation(
     LOGIN_MUTATION
   );
@@ -36,21 +33,45 @@ function SignIn() {
 
       <form
         noValidate
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
           e.stopPropagation();
 
-          loginMutation({ variables: { email, password } })
-            .then((result) => loginUser(result.data.login.token, client))
-            .catch((err) => message.error(err.message));
+          const {
+            email,
+            password,
+            //@ts-ignore
+          } = event.currentTarget.elements;
+
+          try {
+            await client.resetStore();
+            const result: { data?: any } = await loginMutation({
+              variables: {
+                email: email.value,
+                password: password.value,
+              },
+            });
+
+            if (result.data) loginUser(result.data.login.token, client);
+          } catch (error) {
+            message.error(error.message);
+          }
         }}
       >
-        <Field value={email} onChange={(e) => setEmail(e.target.value)} />
+        <Field
+          name="email"
+          type="email"
+          autoComplete="email"
+          required
+          label="Email"
+        />
 
         <Field
           type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          name="password"
+          autoComplete="password"
+          required
+          label="Email"
         />
 
         <div>
