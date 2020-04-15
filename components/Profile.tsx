@@ -2,10 +2,11 @@ import React from "react";
 
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
-import withApollo from "../apollo/with-apollo";
+import withApollo from "./apollo/with-apollo";
 import { Input, Button } from "antd";
 
-import { logoutUser } from "../auth";
+import { logoutUser } from "./auth";
+import Link from "next/link";
 
 const Profile = ({}) => {
   const { loading, error, data, client } = useQuery(
@@ -20,7 +21,13 @@ const Profile = ({}) => {
     `
   );
   if (loading) return <div>Loading...</div>;
-  if (!data || !data.me) return <h1>You are not logged in.</h1>;
+  if (!data || !data.me)
+    return (
+      <div>
+        <h1>You are not logged in.</h1>
+        <Link href="/login">Login</Link> or <Link href="/signup">Sign up</Link>
+      </div>
+    );
   return (
     <div>
       <div>

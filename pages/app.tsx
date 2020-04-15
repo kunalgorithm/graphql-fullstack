@@ -1,4 +1,4 @@
-import Dashboard from "../components/dashboard/Dashboard";
+import Dashboard from "../components/Dashboard";
 
 export default () => {
   return <Dashboard />;

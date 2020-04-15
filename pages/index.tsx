@@ -1,7 +1,6 @@
 import React from "react";
 
 import Link from "next/link";
-import { Copyright } from "../components/dashboard/Copyright";
 
 const Index = ({ users }) => (
   <div>
@@ -18,9 +17,6 @@ const Index = ({ users }) => (
       <Link href="/app">
         <a>skip to the Dashboard.</a>
       </Link>
-    </div>
-    <div>
-      <Copyright />
     </div>
   </div>
 );

@@ -1,6 +1,7 @@
 import React from "react";
 import App, { Container } from "next/app";
 import Head from "next/head";
+import Copyright from "../components/Copyright";
 
 //@ts-ignore
 import "antd/dist/antd.css";
@@ -22,11 +23,12 @@ class MyApp extends App {
         <Head>
           <title>GraphQL Fullstack Web App</title>
         </Head>
-        <>
+        <main>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           {/* <CssBaseline /> */}
           <Component {...pageProps} />
-        </>
+          <Copyright />
+        </main>
       </>
     );
   }

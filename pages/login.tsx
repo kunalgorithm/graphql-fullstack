@@ -28,31 +28,33 @@ function SignIn() {
   const [loginMutation, { error, client, loading }] = useMutation(
     LOGIN_MUTATION
   );
-  if (error) message.error(error.message);
+  // if (error) message.error(error.message);
 
   return (
     <div>
+      {/* {error && message.error(error.message)} */}
       <h3>Log in</h3>
 
       <div>
         <form
           noValidate
-          onSubmit={e => {
+          onSubmit={(e) => {
             e.preventDefault();
             e.stopPropagation();
+
             loginMutation({ variables: { email, password } })
-              .then(result => loginUser(result.data.login.token, client))
-              .catch(err => console.error(err));
+              .then((result) => loginUser(result.data.login.token, client))
+              .catch((err) => message.error(err.message));
           }}
         >
           <div>
-            <Input value={email} onChange={e => setEmail(e.target.value)} />
+            <Input value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div>
             <Input
               type="password"
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div>

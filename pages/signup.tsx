@@ -45,7 +45,6 @@ function SignUp() {
   const [signupMutation, { loading, error, data, client }] = useMutation(
     SIGNUP_MUTATION
   );
-  if (error) message.error(error.message);
 
   return (
     <div>
@@ -53,38 +52,44 @@ function SignUp() {
         <div>Sign up</div>
         <form
           noValidate
-          onSubmit={e => {
+          onSubmit={(e) => {
             e.preventDefault();
             e.stopPropagation();
             signupMutation({
-              variables: { firstName, lastName, email, password }
+              variables: { firstName, lastName, email, password },
             })
-              .then(result => loginUser(result.data.signup.token, client))
-              .catch(err => console.error(err));
+              .then((result) => loginUser(result.data.signup.token, client))
+              .catch((err) => message.error(err.message));
           }}
         >
           <div>
             <Input
               value={firstName}
-              onChange={e => setFirstName(e.target.value)}
+              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="First Name"
             />
           </div>
-
           <div>
             <Input
               value={lastName}
-              onChange={e => setLastName(e.target.value)}
+              onChange={(e) => setLastName(e.target.value)}
+              placeholder="Last Name"
             />
           </div>
-
           <div>
-            <Input value={email} onChange={e => setEmail(e.target.value)} />
+            <Input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              type="email"
+            />
           </div>
-
           <div>
             <Input
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              type="password"
             />
           </div>
 
