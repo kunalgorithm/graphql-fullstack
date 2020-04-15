@@ -8,6 +8,7 @@ import { loginUser } from "../components/auth";
 import withApollo from "../components/apollo/with-apollo";
 import Link from "next/link";
 import { Input, Button, message } from "antd";
+import Field from "../components/Field";
 
 const SIGNUP_MUTATION = gql`
   mutation Signup(
@@ -48,62 +49,55 @@ function SignUp() {
 
   return (
     <div>
-      <div>
-        <div>Sign up</div>
-        <form
-          noValidate
-          onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            signupMutation({
-              variables: { firstName, lastName, email, password },
-            })
-              .then((result) => loginUser(result.data.signup.token, client))
-              .catch((err) => message.error(err.message));
-          }}
-        >
-          <div>
-            <Input
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              placeholder="First Name"
-            />
-          </div>
-          <div>
-            <Input
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              placeholder="Last Name"
-            />
-          </div>
-          <div>
-            <Input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-              type="email"
-            />
-          </div>
-          <div>
-            <Input
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-              type="password"
-            />
-          </div>
+      <h3>Sign up</h3>
+      <form
+        noValidate
+        onSubmit={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          signupMutation({
+            variables: { firstName, lastName, email, password },
+          })
+            .then((result) => loginUser(result.data.signup.token, client))
+            .catch((err) => message.error(err.message));
+        }}
+      >
+        <Field
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          placeholder="First Name"
+        />
 
-          <div>
-            <Button htmlType="submit" type="default" loading={loading}>
-              Sign Up
-            </Button>
-          </div>
+        <Field
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          placeholder="Last Name"
+        />
 
-          <Link href="/login">
-            <a>Already have an account? Log in</a>
-          </Link>
-        </form>
-      </div>
+        <Field
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          type="email"
+        />
+
+        <Field
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          type="password"
+        />
+
+        <div>
+          <Button htmlType="submit" type="default" loading={loading}>
+            Sign Up
+          </Button>
+        </div>
+
+        <Link href="/login">
+          <a>Already have an account? Log in</a>
+        </Link>
+      </form>
     </div>
   );
 }

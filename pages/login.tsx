@@ -9,6 +9,7 @@ import withApollo from "../components/apollo/with-apollo";
 
 import { Input, Button, message } from "antd";
 import Link from "next/link";
+import Field from "../components/Field";
 
 const LOGIN_MUTATION = gql`
   mutation Login($email: String!, $password: String!) {
@@ -28,46 +29,42 @@ function SignIn() {
   const [loginMutation, { error, client, loading }] = useMutation(
     LOGIN_MUTATION
   );
-  // if (error) message.error(error.message);
 
   return (
     <div>
-      {/* {error && message.error(error.message)} */}
       <h3>Log in</h3>
 
-      <div>
-        <form
-          noValidate
-          onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
+      <form
+        noValidate
+        onSubmit={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
 
-            loginMutation({ variables: { email, password } })
-              .then((result) => loginUser(result.data.login.token, client))
-              .catch((err) => message.error(err.message));
-          }}
-        >
-          <div>
-            <Input value={email} onChange={(e) => setEmail(e.target.value)} />
-          </div>
-          <div>
-            <Input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div>
-            <Button htmlType="submit" type="default" loading={loading}>
-              Log In
-            </Button>
-          </div>
+          loginMutation({ variables: { email, password } })
+            .then((result) => loginUser(result.data.login.token, client))
+            .catch((err) => message.error(err.message));
+        }}
+      >
+        <Field value={email} onChange={(e) => setEmail(e.target.value)} />
 
+        <Field
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <div>
+          <Button htmlType="submit" type="default" loading={loading}>
+            Log In
+          </Button>
+        </div>
+
+        <div>
           <Link href="/signup">
             <a>Don't have an account? Sign Up</a>
           </Link>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 }
