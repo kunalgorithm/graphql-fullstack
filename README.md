@@ -86,7 +86,7 @@ npx prisma
 
 Then, open `schema.prisma` in the `prisma` directory and add the following
 
-```graphql
+```prisma
 datasource sqlite {
   provider = "sqlite"
   url      = "file:./dev.db"
@@ -119,14 +119,14 @@ to save your first database migration. When asked whether to create a SQLite fil
 
 Open `schema.prisma` in the `prisma` directory. Add a new optional field, _githubUrl_ to a data type, _User_.
 
-```graphql
+```prisma
 model User {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  email     String   @unique
-  name      String?
-  password String
-+ githubUrl String?
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  email      String   @unique
+  name       String?
+  password   String
+  githubUrl  String?
 }
 ```
 
@@ -138,15 +138,7 @@ Now that you've added a new field to your database and made it available to the 
 
 Open the API type defintion file at `apollo/typedefs.js` and extend
 
-```
-type User {
-  ...
-}
-```
-
-to
-
-```
+```diff
 type User {
   ...
 + graphqlUrl: String
@@ -155,7 +147,7 @@ type User {
 
 Now, render the new data on the app by adding it to the query on the `Profile` component
 
-```javascript
+```diff
 const { loading, error, data, client } = useQuery(
   gql`
     query {
