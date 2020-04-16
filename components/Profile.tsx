@@ -5,8 +5,6 @@ import { gql } from "apollo-boost";
 import { withApollo } from "../apollo/client";
 
 import { Input, Button } from "antd";
-
-import { logoutUser } from "./auth";
 import Link from "next/link";
 
 const Profile = ({}) => {

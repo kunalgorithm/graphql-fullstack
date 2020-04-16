@@ -2,6 +2,8 @@
 
 A monorepo web application boilerplate with authentication, a graphQL api, database access, and material-ui styling. Visit the demo at https://graphql-fullstack.now.sh
 
+> UPDATE: The app now uses [Ant Design](https://ant.design) instead of material UI, and the dashboard no longer resembles the screenshot below. This will be updated soon.
+
 ![Screenshot](static/screenshot.png)
 
 # But Why
@@ -84,7 +86,7 @@ npx prisma
 
 Then, open `schema.prisma` in the `prisma` directory and add the following
 
-```prisma
+```graphql
 datasource sqlite {
   provider = "sqlite"
   url      = "file:./dev.db"
@@ -117,7 +119,7 @@ to save your first database migration. When asked whether to create a SQLite fil
 
 Open `schema.prisma` in the `prisma` directory. Add a new optional field, _githubUrl_ to a data type, _User_.
 
-```
+```graphql
 model User {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
@@ -130,15 +132,11 @@ model User {
 
 > Note: the `?` signals that the field is optional.
 
-### Run the database migration
-
-Once you've made the change to `schema.prisma`, create the migration by running `prisma deploy`, which applied a migration to synchronize changes with the database and generates a new prisma client to access it.
-
 ### Make it available to the frontend.
 
 Now that you've added a new field to your database and made it available to the _server_, you need to make it available to your _client_ by defining it within the graphQL endpoint's type definitions.
 
-Open the API route at `pages/api/graphql.ts` and extend
+Open the API type defintion file at `apollo/typedefs.js` and extend
 
 ```
 type User {
@@ -155,6 +153,27 @@ type User {
 }
 ```
 
-# Need help?
+Now, render the new data on the app by adding it to the query on the `Profile` component
+
+```javascript
+const { loading, error, data, client } = useQuery(
+  gql`
+    query {
+      me {
+        id
+        name
+        email
++       githubUrl
+      }
+    }
+  `
+);
+```
+
+## Contributions welcome!
+
+Feel free to open an issue or submit a pull request 🙂
+
+## Need help?
 
 Send me a DM on twitter! [@kunalgorithm](https://twitter.com/kunalgorithm)

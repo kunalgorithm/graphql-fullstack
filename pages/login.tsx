@@ -1,24 +1,16 @@
 import React, { useState } from "react";
-
 import { gql } from "apollo-boost";
-import { useMutation } from "@apollo/react-hooks";
-
-// local imports
-import { loginUser } from "../components/auth";
-import { withApollo } from "../apollo/client";
-
-import { Input, Button, message } from "antd";
 import Link from "next/link";
-import Field from "../components/Field";
+import { useMutation } from "@apollo/react-hooks";
+import { Input, Button, message } from "antd";
 import { useRouter } from "next/router";
+
+import { withApollo } from "../apollo/client";
+import Field from "../components/Field";
 
 const LOGIN_MUTATION = gql`
   mutation Login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
-      # user {
-      #   email
-      # }
-      # token
       email
       name
     }

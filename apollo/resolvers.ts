@@ -32,7 +32,7 @@ export const resolvers = {
   Query: {
     async me(_parent, _args, ctx: Context, _info) {
       const { token } = cookie.parse(ctx.req.headers.cookie ?? "");
-      console.log("token", token)
+
       if (token) {
         try {
           const { id, email } = jwt.verify(token, JWT_SECRET);
