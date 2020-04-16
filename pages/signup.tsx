@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
-import { loginUser } from "../components/auth";
-import withApollo from "../components/apollo/with-apollo";
+
+import { withApollo } from "../apollo/client";
 import Link from "next/link";
 import { Input, Button, message } from "antd";
 import Field from "../components/Field";
@@ -66,7 +66,9 @@ function SignUp() {
               },
             });
 
-            if (result.data) loginUser(result.data.signup.token, client);
+            if (result.data && result.data.signup) {
+              await router.push("/");
+            }
           } catch (error) {
             message.error(error.message);
           }

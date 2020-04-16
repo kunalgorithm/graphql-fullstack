@@ -45,7 +45,9 @@ const Profile = ({}) => {
           <br />
           {data.me.email}
           <br />
-          <Button onClick={() => logoutUser(client)}>Log Out</Button>
+          <Link href="/signout">
+            <Button onClick={() => {}}>Log Out</Button>
+          </Link>
         </div>
       </div>
     </div>

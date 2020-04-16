@@ -2,7 +2,7 @@ import React from "react";
 
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
-import withApollo from "../components/apollo/with-apollo";
+import { withApollo } from "../apollo/client";
 
 export default withApollo(() => {
   const { loading, error, data } = useQuery(

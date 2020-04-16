@@ -56,10 +56,8 @@ function SignIn() {
               },
             });
 
-            // if (result.data) loginUser(result.data.login.token, client);
             if (result.data && result.data.login) {
-              console.log(result);
-              // await router.push('/')
+              await router.push("/");
             }
           } catch (error) {
             message.error(error.message);
