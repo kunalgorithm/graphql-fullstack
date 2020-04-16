@@ -2,7 +2,8 @@ import React from "react";
 
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
-import withApollo from "./apollo/with-apollo";
+import { withApollo } from "../apollo/client";
+
 import { Input, Button } from "antd";
 
 import { logoutUser } from "./auth";
@@ -13,6 +14,7 @@ const Profile = ({}) => {
     gql`
       query {
         me {
+          id
           name
           email
         }
@@ -24,7 +26,13 @@ const Profile = ({}) => {
     return (
       <div>
         <h1>You are not logged in.</h1>
-        <Link href="/login">Login</Link> or <Link href="/signup">Sign up</Link>
+        <Link href="/login">
+          <a>Login</a>
+        </Link>{" "}
+        or{" "}
+        <Link href="/signup">
+          <a>Sign up</a>
+        </Link>
       </div>
     );
   return (

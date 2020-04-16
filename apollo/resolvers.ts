@@ -14,7 +14,7 @@ export interface Context {
   res: NextApiResponse
 }
 
-const JWT_SECRET = getConfig().serverRuntimeConfig.JWT_SECRET;
+const JWT_SECRET = "appsecret123"
 
 const users: {
   id: string;
@@ -32,11 +32,12 @@ export const resolvers = {
   Query: {
     async me(_parent, _args, ctx: Context, _info) {
       const { token } = cookie.parse(ctx.req.headers.cookie ?? "");
+      console.log("token", token)
       if (token) {
         try {
           const { id, email } = jwt.verify(token, JWT_SECRET);
 
-          return users.find((user) => user.id === id && user.email === email);
+          return await ctx.prisma.user.findOne({where: {id}})
         } catch {
           throw new AuthenticationError(
             "Authentication token is invalid, please log in"
@@ -65,11 +66,11 @@ export const resolvers = {
       return user;
     },
 
-    async login(_parent, args, ctx: Context, _info) {
+    async login(_parent, args: {email: string; password: string}, ctx: Context, _info) {
 
       const user = await ctx.prisma.user.findOne({where: {email:args.email}})
 
-      if (user && validPassword(user, args.input.password)) {
+      if (user && validPassword(user, args.password)) {
         const token = jwt.sign(
           { email: user.email, id: user.id, time: new Date() },
           JWT_SECRET,

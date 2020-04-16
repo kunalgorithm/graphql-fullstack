@@ -5,19 +5,22 @@ import { useMutation } from "@apollo/react-hooks";
 
 // local imports
 import { loginUser } from "../components/auth";
-import withApollo from "../components/apollo/with-apollo";
+import { withApollo } from "../apollo/client";
 
 import { Input, Button, message } from "antd";
 import Link from "next/link";
 import Field from "../components/Field";
+import { useRouter } from "next/router";
 
 const LOGIN_MUTATION = gql`
   mutation Login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
-      user {
-        email
-      }
-      token
+      # user {
+      #   email
+      # }
+      # token
+      email
+      name
     }
   }
 `;
@@ -26,6 +29,7 @@ function SignIn() {
   const [loginMutation, { error, client, loading }] = useMutation(
     LOGIN_MUTATION
   );
+  const router = useRouter();
 
   return (
     <div>
@@ -52,7 +56,11 @@ function SignIn() {
               },
             });
 
-            if (result.data) loginUser(result.data.login.token, client);
+            // if (result.data) loginUser(result.data.login.token, client);
+            if (result.data && result.data.login) {
+              console.log(result);
+              // await router.push('/')
+            }
           } catch (error) {
             message.error(error.message);
           }

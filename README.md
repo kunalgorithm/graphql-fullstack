@@ -89,8 +89,10 @@ datasource sqlite {
   provider = "sqlite"
   url      = "file:./dev.db"
 }
+
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
 }
 
 model User {
