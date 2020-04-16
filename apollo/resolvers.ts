@@ -4,21 +4,25 @@ import jwt from "jsonwebtoken";
 import getConfig from "next/config";
 import bcrypt from "bcrypt";
 import v4 from "uuid/v4";
+import { PrismaClient, User } from "@prisma/client";
+import { NextApiRequest, NextApiResponse } from "next";
+
+
+export interface Context {
+  prisma: PrismaClient
+  req: NextApiRequest
+  res: NextApiResponse
+}
 
 const JWT_SECRET = getConfig().serverRuntimeConfig.JWT_SECRET;
 
-const users: { id: string; name: string, email: string, password: string }[] = [];
+const users: {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+}[] = [];
 
-function createUser({email, name, password}) {
-  const salt = bcrypt.genSaltSync();
-
-  return {
-    id: v4(),
-    email,
-    name,
-    password: bcrypt.hashSync(password, salt),
-  };
-}
 
 function validPassword(user, password) {
   return bcrypt.compareSync(password, user.password);
@@ -26,8 +30,8 @@ function validPassword(user, password) {
 
 export const resolvers = {
   Query: {
-    async me(_parent, _args, context, _info) {
-      const { token } = cookie.parse(context.req.headers.cookie ?? "");
+    async me(_parent, _args, ctx: Context, _info) {
+      const { token } = cookie.parse(ctx.req.headers.cookie ?? "");
       if (token) {
         try {
           const { id, email } = jwt.verify(token, JWT_SECRET);
@@ -40,22 +44,30 @@ export const resolvers = {
         }
       }
     },
-    async users(_parent, _args, context, _info) {
-      return [];
+    async users(_parent, _args, ctx: Context, _info) {
+      return ctx.prisma.user.findMany();
     },
   },
 
   Mutation: {
-    async signup(_parent, args, _context, _info) {
-      const user = createUser(args);
+    async signup(_parent, args, ctx: Context, _info): Promise<User> {
 
-      users.push(user);
+      const salt = bcrypt.genSaltSync();
 
-      return  user ;
+      const user = await ctx.prisma.user.create({data: {
+
+        email: args.email,
+        name: args.name,
+        password: bcrypt.hashSync(args.password, salt),
+      }})
+
+
+      return user;
     },
 
-    async login(_parent, args, context, _info) {
-      const user = users.find((user) => user.email === args.input.email);
+    async login(_parent, args, ctx: Context, _info) {
+
+      const user = await ctx.prisma.user.findOne({where: {email:args.email}})
 
       if (user && validPassword(user, args.input.password)) {
         const token = jwt.sign(
@@ -66,7 +78,7 @@ export const resolvers = {
           }
         );
 
-        context.res.setHeader(
+        ctx.res.setHeader(
           "Set-Cookie",
           cookie.serialize("token", token, {
             httpOnly: true,
@@ -77,13 +89,13 @@ export const resolvers = {
           })
         );
 
-        return { user };
+        return user;
       }
 
       throw new UserInputError("Invalid email and password combination");
     },
-    async signOut(_parent, _args, context, _info) {
-      context.res.setHeader(
+    async signOut(_parent, _args, ctx: Context, _info) {
+      ctx.res.setHeader(
         "Set-Cookie",
         cookie.serialize("token", "", {
           httpOnly: true,

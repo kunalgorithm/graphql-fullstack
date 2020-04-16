@@ -31,8 +31,8 @@ git clone https://github.com/kunalgorithm/graphql-fullstack
 install dependencies, then run the development server:
 
 ```bash
-npm install
-npm run dev
+yarn
+yarn dev
 ```
 
 # Deploy
@@ -55,52 +55,82 @@ now
 
 🤖 [Typescript](https://www.typescriptlang.org) - static types, used throughout the client and server (especially handy for the auto-generated prisma2 client).
 
-🌚 [Next 9](https://github.com/zeit/next.js) - server-side rendering, file-based routing in the `pages` directory, and serverless build of of graphql API within `pages/api/graphql.ts` using [API Routes](https://github.com/zeit/next.js#api-routes)
+🌚 [Next 9.3](https://github.com/zeit/next.js) - server-side rendering, file-based routing in the `pages` directory, and serverless build of of graphql API within `pages/api/graphql.ts` using [API Routes](https://github.com/zeit/next.js#api-routes).
 
 🦋 [Apollo](https://www.apollographql.com/docs/react/hooks-migration/) (React Hooks API) - GraphQL client for queries and mutations.
 
 🦄 [Prisma](https://prisma.io) - Next-generation database access and migration tools.
 
-💅 [Material UI](https://material-ui.com) - Material UI components, CSS-in-JS styles solutions, and theme.
+💅 [Ant Design](https:/ant.design) - Beautiful, responsive, easy-to-use components.
 
-▲ [ZEIT now](https://now.sh) - serverless monorepo deployment
+▲ [ZEIT now](https://now.sh) - serverless monorepo deployment.
 
 # Development
 
 ## Create new data types
 
-Install the prisma CLI
+Create a new project and install the prisma CLI, along with typescript, as development dependencies
 
 ```
-npm install -g prisma
+npm init -y
+yarn add -D @prisma/cli typescript ts-node @types/node
 ```
 
-Then open `datamodel.graphql` in the `prisma` directory. Add a new optional field, _githubUrl_ to a data type, _User_.
+You can now invoke the prisma CLI
 
 ```
-type User {
-  id: ID! @id @unique
-  email: String!  @unique
-  password: String!
+npx prisma
+```
+
+Then, open `schema.prisma` in the `prisma` directory and add the following
+
+```prisma
+datasource sqlite {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  email     String   @unique
+  name      String?
+  password String
+
+}
+
+```
+
+and run
+`npx prisma migrate save --name init --experimental`
+
+to save your first database migration. When asked whether to create a SQLite file, select yes. Then, apply the migration by running
+
+`npx prisma migrate up --experimental`
+
+### Adding a new field
+
+Open `schema.prisma` in the `prisma` directory. Add a new optional field, _githubUrl_ to a data type, _User_.
+
+```
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  email     String   @unique
+  name      String?
+  password String
++ githubUrl String?
 }
 ```
 
-becomes
-
-```
-type User {
-  id: ID! @id @unique
-  email: String!  @unique
-  password: String!
-+ githubUrl: String
-}
-```
-
-Note that `!` signals that the field is required.
+> Note: the `?` signals that the field is optional.
 
 ### Run the database migration
 
-Once you've made the change to `datamodel.graphql`, create the migration by running `prisma deploy`, which applied a migration to synchronize changes with the database and generates a new prisma client to access it.
+Once you've made the change to `schema.prisma`, create the migration by running `prisma deploy`, which applied a migration to synchronize changes with the database and generates a new prisma client to access it.
 
 ### Make it available to the frontend.
 

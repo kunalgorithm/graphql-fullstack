@@ -13,8 +13,7 @@ const Profile = ({}) => {
     gql`
       query {
         me {
-          firstName
-          lastName
+          name
           email
         }
       }
@@ -34,7 +33,7 @@ const Profile = ({}) => {
         <h1>Profile</h1>
 
         <div>
-          {data.me.firstName} {data.me.lastName}
+          {data.me.name}
           <br />
           {data.me.email}
           <br />

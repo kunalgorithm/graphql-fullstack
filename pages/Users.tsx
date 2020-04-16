@@ -10,8 +10,7 @@ export default withApollo(() => {
       query {
         users {
           email
-          firstName
-          lastName
+          name
         }
       }
     `
@@ -24,7 +23,7 @@ export default withApollo(() => {
           data.users &&
           data.users.map((user, i) => (
             <div key={i}>
-              {user.firstName} {user.lastName} - {user.email}
+              {user.name} - {user.email}
             </div>
           ))}
       </div>

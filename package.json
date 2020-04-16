@@ -16,6 +16,7 @@
   "dependencies": {
     "@apollo/react-hooks": "^3.1.0",
     "@apollo/react-ssr": "^3.1.0",
+    "@prisma/client": "^2.0.0-beta.2",
     "antd": "^4.0.4",
     "apollo-boost": "^0.4.4",
     "apollo-link-context": "^1.0.19",
@@ -28,14 +29,14 @@
     "isomorphic-unfetch": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
     "next": "^9.3.2",
-    "prisma-client-lib": "^1.34.10",
-    "prisma2": "^2.0.0-preview016.1",
+    "prettier": "^2.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "recharts": "^1.7.1",
     "sass": "^1.26.3"
   },
   "devDependencies": {
+    "@prisma/cli": "^2.0.0-beta.2",
     "@types/react": "^16.9.2",
     "tslint": "^5.19.0",
     "typescript": "^3.6.2"
