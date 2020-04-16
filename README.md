@@ -2,7 +2,7 @@
 
 A monorepo web application boilerplate with authentication, a graphQL api, database access, and material-ui styling. Visit the demo at https://graphql-fullstack.now.sh
 
-> UPDATE: The app now uses [Ant Design](https://ant.design) instead of material UI, and the dashboard no longer resembles the screenshot below. This will be updated soon.
+> UPDATE: The app now uses the [Prisma 2 Beta](https://www.prisma.io/blog/prisma-2-beta-b7bcl0gd8d8e/) for data access on SQLite and [Ant Design](https://ant.design) instead of material UI for styling. Consequently, the demo app no longer allows creating new accounts, and will require migration to a postgres or mysql database instance hosted in the cloud. Moreover, the dashboard no longer resembles the screenshot below. These will be updated soon.
 
 ![Screenshot](static/screenshot.png)
 
@@ -14,11 +14,11 @@ When building a new project, choosing a technology stack, configuring it, wiring
 
 ⚡️ Deploy a full-featured production-ready web application in less than 60 seconds.
 
-🔐 Allow users to sign up and log in with an email and password, view their profiles and data, and log out.
+🔐 Allow users to sign up and log in with an email and password, view their profiles and data, and log out. Outputs feedback for loading and errors states to enhance UX. 
 
 📃 Includes a splash page, login page, sign up page, and dashboard.
 
-🤖‍‍ Uses prebuilt commonly-used components, including a sidebar, top navigation bar, animated line graph with [Recharts](http://recharts.org/en-US/), and [Material Icons](https://material.io/resources/icons/).
+🤖‍‍ Includes wired up forms, queries, mutations, snackbars, and more commonly used components.
 
 ☁️ [Zero Config Deployments](https://zeit.co/blog/zero-config). It just works 🔥
 
