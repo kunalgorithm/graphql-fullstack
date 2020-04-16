@@ -49,7 +49,7 @@ export const resolvers = {
       return await ctx.prisma.user.findOne({where: {email: args.email}})
     },
     async users(_parent, _args, ctx: Context, _info) {
-      return ctx.prisma.user.findMany();
+      return ctx.prisma.user.findMany({orderBy: {createdAt: "desc"}});
     },
   },
 
@@ -138,7 +138,7 @@ export const resolvers = {
   },
     User: {
       async posts({id}, _args, ctx: Context): Promise<Post[]> {
-        return await ctx.prisma.post.findMany({where: {user: {id}}})
+        return await ctx.prisma.post.findMany({where: {user: {id}}, orderBy: {createdAt: "desc"}})
       }
     }
 };

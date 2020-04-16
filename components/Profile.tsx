@@ -52,4 +52,4 @@ const Profile = () => {
   );
 };
 
-export default withApollo(Profile);
+export default Profile;

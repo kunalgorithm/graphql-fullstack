@@ -2,7 +2,7 @@ import React from "react";
 
 import Profile from "./Profile";
 import { Row, Col } from "antd";
-import Users from "../pages/Users";
+import Users from "./Users";
 import Posts from "./Posts";
 
 export default function Dashboard() {
@@ -10,14 +10,19 @@ export default function Dashboard() {
     <div>
       <Row>
         <Col span={8}>
-          <Profile />
+          <Row>
+            <Profile />
+          </Row>
+          <Row>
+            <Users />
+          </Row>
         </Col>
         <Col span={8}>
           <Posts />
         </Col>
-        <Col span={8}>
+        {/* <Col span={8}>
           <Users />
-        </Col>
+        </Col> */}
       </Row>
       <style jsx>{`
         display: block;

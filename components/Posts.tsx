@@ -4,7 +4,7 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import { withApollo } from "../apollo/client";
 
-import { Input, Button } from "antd";
+import { Input, Button, Card } from "antd";
 import Link from "next/link";
 import Field from "./Field";
 
@@ -40,8 +40,7 @@ const Profile = () => {
   }
 
   `);
-  if (loading) return <div>Loading...</div>;
-  if (!data || !data.me) return <div>Something went wrong...</div>;
+
   return (
     <div>
       <h1>Posts</h1>
@@ -67,11 +66,13 @@ const Profile = () => {
       </form>
       <div>
         {posts.map((post, i) => (
-          <div key={i}>{post.title}</div>
+          <Card key={i} style={{ padding: "5px" }}>
+            <p>{post.title}</p>
+          </Card>
         ))}
       </div>
     </div>
   );
 };
 
-export default withApollo(Profile);
+export default Profile;
