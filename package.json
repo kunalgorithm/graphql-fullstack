@@ -1,6 +1,6 @@
 {
   "name": "graphql-fullstack",
-  "homepage": "graphql-fullstack.now.sh",
+  "homepage": "https://graphql-fullstack.now.sh",
   "author": {
     "name": "Kunal Shah",
     "email": "me@kunal.sh"
@@ -8,7 +8,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "PORT=3000 NODE_ENV=development next",
+    "dev": "next",
     "build": "next build",
     "now-build": "next build",
     "start": "next start"
@@ -20,6 +20,7 @@
     "apollo-boost": "^0.4.4",
     "apollo-link-context": "^1.0.19",
     "apollo-server-micro": "2.6.7",
+    "bcrypt": "^4.0.1",
     "bcryptjs": "^2.4.3",
     "cookie": "^0.4.0",
     "graphql": "14.4.2",

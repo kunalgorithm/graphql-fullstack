@@ -63,7 +63,7 @@ function SignIn() {
           type="email"
           autoComplete="email"
           required
-          label="Email"
+          placeholder="Email"
         />
 
         <Field
@@ -71,7 +71,7 @@ function SignIn() {
           name="password"
           autoComplete="password"
           required
-          label="Email"
+          placeholder="Password"
         />
 
         <div>

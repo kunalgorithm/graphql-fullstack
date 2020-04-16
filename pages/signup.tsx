@@ -36,13 +36,6 @@ const SIGNUP_MUTATION = gql`
 function SignUp() {
   const router = useRouter();
 
-  const [email, setEmail] = useState("");
-
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-
-  const [password, setPassword] = useState("");
-
   const [signupMutation, { loading, error, data, client }] = useMutation(
     SIGNUP_MUTATION
   );
@@ -52,40 +45,48 @@ function SignUp() {
       <h3>Sign up</h3>
       <form
         noValidate
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
           e.stopPropagation();
-          signupMutation({
-            variables: { firstName, lastName, email, password },
-          })
-            .then((result) => loginUser(result.data.signup.token, client))
-            .catch((err) => message.error(err.message));
+
+          const {
+            email,
+            name,
+            password,
+            //@ts-ignore
+          } = event.currentTarget.elements;
+
+          try {
+            await client.resetStore();
+            const result: { data?: any } = await signupMutation({
+              variables: {
+                email: email.value,
+                password: password.value,
+                name: name.value,
+              },
+            });
+
+            if (result.data) loginUser(result.data.signup.token, client);
+          } catch (error) {
+            message.error(error.message);
+          }
         }}
       >
         <Field
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          placeholder="First Name"
-        />
-
-        <Field
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          placeholder="Last Name"
-        />
-
-        <Field
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
+          name="email"
           type="email"
+          autoComplete="email"
+          required
+          placeholder="Email"
         />
+        <Field placeholder="Name" name="name" type="name" />
 
         <Field
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
           type="password"
+          name="password"
+          autoComplete="password"
+          required
+          placeholder="Password"
         />
 
         <div>
