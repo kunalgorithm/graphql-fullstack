@@ -23,10 +23,10 @@ export default () => {
         </svg>
       </a>
       <style jsx>{`
-        width: 230px;
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
+        // width: 230px;
+        // position: absolute;
+        // bottom: 10px;
+        // right: 10px;
       `}</style>
     </div>
   );

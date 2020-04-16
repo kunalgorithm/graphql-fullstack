@@ -11,7 +11,10 @@
     "dev": "next",
     "build": "next build",
     "now-build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "migrate": "yarn migrate:save && yarn migrate:up",
+    "migrate:save": "prisma migrate save --experimental",
+    "migrate:up": "prisma migrate up --experimental"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.0",

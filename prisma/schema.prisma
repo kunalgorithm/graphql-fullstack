@@ -18,5 +18,12 @@ model User {
   name      String?
   password String
   // role      Role     @default(USER)
-  // posts     Post[]
+  posts     Post[]
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  title     String   
+
 }

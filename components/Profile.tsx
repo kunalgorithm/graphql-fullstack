@@ -7,7 +7,7 @@ import { withApollo } from "../apollo/client";
 import { Input, Button } from "antd";
 import Link from "next/link";
 
-const Profile = ({}) => {
+const Profile = () => {
   const { loading, error, data, client } = useQuery(
     gql`
       query {

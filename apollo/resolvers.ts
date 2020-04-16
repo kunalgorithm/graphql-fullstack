@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import getConfig from "next/config";
 import bcrypt from "bcrypt";
 import v4 from "uuid/v4";
-import { PrismaClient, User } from "@prisma/client";
+import { PrismaClient, User, Post } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 
 
@@ -45,12 +45,38 @@ export const resolvers = {
         }
       }
     },
+    async user(_parent, args: {email: string}, ctx: Context, _info) {
+      return await ctx.prisma.user.findOne({where: {email: args.email}})
+    },
     async users(_parent, _args, ctx: Context, _info) {
       return ctx.prisma.user.findMany();
     },
   },
 
   Mutation: {
+    async createPost(_parent, args: {title: string}, ctx: Context, _info): Promise<Post> {
+
+      const { token } = cookie.parse(ctx.req.headers.cookie ?? "");
+
+      if (token) {
+        try {
+          const { id, email } = jwt.verify(token, JWT_SECRET);
+
+          return await ctx.prisma.post.create({data: {
+            title: args.title,
+            user: {
+              connect: {
+                id
+              }
+            }
+          }})
+        } catch {
+          throw new AuthenticationError(
+            "Authentication token is invalid, please log in"
+          );
+        }
+      }
+    },
     async signup(_parent, args, ctx: Context, _info): Promise<User> {
 
       const salt = bcrypt.genSaltSync();
@@ -110,4 +136,9 @@ export const resolvers = {
       return true;
     },
   },
+    User: {
+      async posts({id}, _args, ctx: Context): Promise<Post[]> {
+        return await ctx.prisma.post.findMany({where: {user: {id}}})
+      }
+    }
 };
