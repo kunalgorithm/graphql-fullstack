@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "now-build": "next build",
+    "now-build": "next build && prisma generate",
     "start": "next start",
     "migrate": "yarn migrate:save && yarn migrate:up",
     "migrate:save": "prisma migrate save --experimental",
