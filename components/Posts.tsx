@@ -8,7 +8,7 @@ import { Input, Button, Card } from "antd";
 import Link from "next/link";
 import Field from "./Field";
 
-const Profile = () => {
+export default () => {
   const { loading, error, data, client } = useQuery(
     gql`
       query {
@@ -74,5 +74,3 @@ const Profile = () => {
     </div>
   );
 };
-
-export default Profile;
