@@ -3,6 +3,7 @@ import Head from "next/head";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
+import { onError } from "apollo-link-error";
 
 let globalApolloClient = null;
 
@@ -143,10 +144,23 @@ function createIsomorphLink(ctx) {
     return new SchemaLink({ schema, context: ctx });
   } else {
     const { HttpLink } = require("apollo-link-http");
+    const errorLink = onError(({ graphQLErrors, networkError }) => {
+      if (process.env.NODE_ENV !== "development") return;
+      if (graphQLErrors)
+        graphQLErrors.map(({ message, locations, path }) =>
+          console.log(
+            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+          )
+        );
 
-    return new HttpLink({
-      uri: "/api/graphql",
-      credentials: "same-origin",
+      if (networkError) console.log(`[Network error]: ${networkError}`);
     });
+
+    return errorLink.concat(
+      new HttpLink({
+        uri: "/api/graphql",
+        credentials: "same-origin",
+      })
+    );
   }
 }
