@@ -26,25 +26,24 @@ const Profile = () => {
   );
 
   useEffect(() => {
-    if (data) setPosts(data.me.posts);
+    if (data && data.me) setPosts(data.me.posts);
   }, [data]);
 
   const [posts, setPosts] = useState([]);
   const [input, setInput] = useState("");
 
   const [createPost] = useMutation(gql`
-  mutation createPost($title: String!) {
-    createPost(title: $title) {
-      title
+    mutation createPost($title: String!) {
+      createPost(title: $title) {
+        title
+      }
     }
-  }
-
   `);
 
   return (
     <div>
       <h1>Posts</h1>
-
+      {!data || (!data.me && <span>Log in to create posts.</span>)}
       <form
         noValidate
         onSubmit={async (e) => {
@@ -58,6 +57,7 @@ const Profile = () => {
           name="post"
           type="post"
           autoComplete="post"
+          disabled={!data || !data.me}
           required
           placeholder="Post something..."
           value={input}
