@@ -7,14 +7,13 @@ import v4 from "uuid/v4";
 import { PrismaClient, User, Post } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 
-
 export interface Context {
-  prisma: PrismaClient
-  req: NextApiRequest
-  res: NextApiResponse
+  prisma: PrismaClient;
+  req: NextApiRequest;
+  res: NextApiResponse;
 }
 
-const JWT_SECRET = "appsecret123"
+const JWT_SECRET = "appsecret123";
 
 const users: {
   id: string;
@@ -22,7 +21,6 @@ const users: {
   email: string;
   password: string;
 }[] = [];
-
 
 function validPassword(user, password) {
   return bcrypt.compareSync(password, user.password);
@@ -37,7 +35,7 @@ export const resolvers = {
         try {
           const { id, email } = jwt.verify(token, JWT_SECRET);
 
-          return await ctx.prisma.user.findOne({where: {id}})
+          return await ctx.prisma.user.findOne({ where: { id } });
         } catch {
           throw new AuthenticationError(
             "Authentication token is invalid, please log in"
@@ -45,31 +43,37 @@ export const resolvers = {
         }
       }
     },
-    async user(_parent, args: {email: string}, ctx: Context, _info) {
-      return await ctx.prisma.user.findOne({where: {email: args.email}})
+    async user(_parent, args: { email: string }, ctx: Context, _info) {
+      return await ctx.prisma.user.findOne({ where: { email: args.email } });
     },
     async users(_parent, _args, ctx: Context, _info) {
-      return ctx.prisma.user.findMany({orderBy: {createdAt: "desc"}});
+      return ctx.prisma.user.findMany({ orderBy: { createdAt: "desc" } });
     },
   },
 
   Mutation: {
-    async createPost(_parent, args: {title: string}, ctx: Context, _info): Promise<Post> {
-
+    async createPost(
+      _parent,
+      args: { title: string },
+      ctx: Context,
+      _info
+    ): Promise<Post> {
       const { token } = cookie.parse(ctx.req.headers.cookie ?? "");
 
       if (token) {
         try {
           const { id, email } = jwt.verify(token, JWT_SECRET);
 
-          return await ctx.prisma.post.create({data: {
-            title: args.title,
-            user: {
-              connect: {
-                id
-              }
-            }
-          }})
+          return await ctx.prisma.post.create({
+            data: {
+              title: args.title,
+              user: {
+                connect: {
+                  id,
+                },
+              },
+            },
+          });
         } catch {
           throw new AuthenticationError(
             "Authentication token is invalid, please log in"
@@ -78,23 +82,46 @@ export const resolvers = {
       }
     },
     async signup(_parent, args, ctx: Context, _info): Promise<User> {
-
       const salt = bcrypt.genSaltSync();
 
-      const user = await ctx.prisma.user.create({data: {
+      const user = await ctx.prisma.user.create({
+        data: {
+          email: args.email,
+          name: args.name,
+          password: bcrypt.hashSync(args.password, salt),
+        },
+      });
+      const token = jwt.sign(
+        { email: user.email, id: user.id, time: new Date() },
+        JWT_SECRET,
+        {
+          expiresIn: "6h",
+        }
+      );
 
-        email: args.email,
-        name: args.name,
-        password: bcrypt.hashSync(args.password, salt),
-      }})
-
+      ctx.res.setHeader(
+        "Set-Cookie",
+        cookie.serialize("token", token, {
+          httpOnly: true,
+          maxAge: 6 * 60 * 60,
+          path: "/",
+          sameSite: "lax",
+          secure: process.env.NODE_ENV === "production",
+        })
+      );
 
       return user;
     },
 
-    async login(_parent, args: {email: string; password: string}, ctx: Context, _info) {
-
-      const user = await ctx.prisma.user.findOne({where: {email:args.email}})
+    async login(
+      _parent,
+      args: { email: string; password: string },
+      ctx: Context,
+      _info
+    ) {
+      const user = await ctx.prisma.user.findOne({
+        where: { email: args.email },
+      });
 
       if (user && validPassword(user, args.password)) {
         const token = jwt.sign(
@@ -136,9 +163,12 @@ export const resolvers = {
       return true;
     },
   },
-    User: {
-      async posts({id}, _args, ctx: Context): Promise<Post[]> {
-        return await ctx.prisma.post.findMany({where: {user: {id}}, orderBy: {createdAt: "desc"}})
-      }
-    }
+  User: {
+    async posts({ id }, _args, ctx: Context): Promise<Post[]> {
+      return await ctx.prisma.post.findMany({
+        where: { user: { id } },
+        orderBy: { createdAt: "desc" },
+      });
+    },
+  },
 };
