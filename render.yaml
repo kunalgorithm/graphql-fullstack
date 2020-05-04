@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: graphql-fullstack
+    env: node
+    healthCheckPath: /healthz
+    buildCommand: yarn install && yarn build
+    startCommand: yarn start
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: graphql-fullstack
+          property: connectionString
+databases:
+  - name: graphql-fullstack

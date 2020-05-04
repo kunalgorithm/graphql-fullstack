@@ -12,6 +12,7 @@
     "build": "next build",
     "now-build": "next build && prisma generate",
     "start": "next start",
+    "generate": "prisma generate",
     "migrate": "yarn migrate:save && yarn migrate:up",
     "migrate:save": "prisma migrate save --experimental",
     "migrate:up": "prisma migrate up --experimental"
