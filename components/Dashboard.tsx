@@ -13,16 +13,10 @@ export default function Dashboard() {
           <Row>
             <Profile />
           </Row>
-          <Row>
-            <Users />
-          </Row>
         </Col>
         <Col span={8}>
           <Posts />
         </Col>
-        {/* <Col span={8}>
-          <Users />
-        </Col> */}
       </Row>
       <style jsx>{`
         display: block;

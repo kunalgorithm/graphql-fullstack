@@ -19,7 +19,7 @@ class MyApp extends App {
           <title>GraphQL Fullstack Web App</title>
         </Head>
 
-        <Layout style={{ height: "100vh" }}>
+        <Layout style={{ height: "100vh", marginTop: "-10px" }}>
           <Header>
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[]}>
               <Menu.Item key="1">

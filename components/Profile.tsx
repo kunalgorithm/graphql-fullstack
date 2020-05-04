@@ -42,10 +42,12 @@ const Profile = () => {
           {data.me.name}
           <br />
           {data.me.email}
-          <br />
-          <Link href="/signout">
-            <Button onClick={() => {}}>Log Out</Button>
-          </Link>
+
+          <div>
+            <Link href="/signout">
+              <Button onClick={() => {}}>Log Out</Button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

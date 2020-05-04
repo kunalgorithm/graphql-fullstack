@@ -48,7 +48,7 @@ export default () => {
         noValidate
         onSubmit={async (e) => {
           e.preventDefault();
-          setPosts([...posts, { title: input }]);
+          setPosts([{ title: input }, ...posts]);
           await createPost({ variables: { title: input } });
           setInput("");
         }}

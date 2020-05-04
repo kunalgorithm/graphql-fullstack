@@ -11,24 +11,10 @@ import { Input, Button, message, Row, Col } from "antd";
 import Field from "../components/Field";
 
 const SIGNUP_MUTATION = gql`
-  mutation Signup(
-    $firstName: String!
-    $lastName: String!
-    $email: String!
-    $password: String!
-  ) {
-    signup(
-      firstName: $firstName
-      lastName: $lastName
-      email: $email
-      password: $password
-    ) {
-      user {
-        firstName
-        lastName
-        email
-      }
-      token
+  mutation Signup($name: String!, $email: String!, $password: String!) {
+    signup(name: $name, email: $email, password: $password) {
+      name
+      email
     }
   }
 `;
