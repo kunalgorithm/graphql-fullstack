@@ -34,13 +34,8 @@ export const resolvers = {
       if (token) {
         try {
           const { id, email } = jwt.verify(token, JWT_SECRET);
-
           return await ctx.prisma.user.findOne({ where: { id } });
-        } catch {
-          throw new AuthenticationError(
-            "Authentication token is invalid, please log in"
-          );
-        }
+        } catch {}
       }
     },
     async user(_parent, args: { email: string }, ctx: Context, _info) {
