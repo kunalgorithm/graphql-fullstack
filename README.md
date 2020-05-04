@@ -145,7 +145,11 @@ Open the API type defintion file at `apollo/typedefs.js` and extend
 
 ```diff
 type User {
-  ...
+  id: ID!
+  email: String!
+  name: String
+  password: String!
+  posts: [Post!]!
 + graphqlUrl: String
 }
 ```
@@ -166,6 +170,10 @@ const { loading, error, data, client } = useQuery(
   `
 );
 ```
+
+Now, you'll have the `data.me.githubUrl` available to you (with typesafety and auto-completion!) in your react components ✨
+
+> NOTE: If you aren't seeing the new field, you may have forgotten to run `yarn migrate` to update the prisma client after migrating the database.
 
 ## Authentication
 
