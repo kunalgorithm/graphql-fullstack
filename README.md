@@ -2,7 +2,7 @@
 
 A monorepo web application boilerplate with a graphQL API, server-side cookie authentication with bcrypt and [jwt](https://jwt.io), database access with [Prisma 2](https://prisma.io), and styling with [Ant Design](https://ant.design).
 
-![Screenshot](public/screenshot.png)
+![Demo GIF](public/demo.gif)
 
 # But Why
 
