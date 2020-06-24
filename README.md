@@ -20,6 +20,21 @@ When building a new project, choosing a technology stack, configuring it, wiring
 
 ☁️ [Zero Config Deployments](https://zeit.co/blog/zero-config). It just works 🔥
 
+
+# Tech stack
+
+🤖 [Typescript](https://www.typescriptlang.org) - static types, used throughout the client and server (especially handy for the auto-generated prisma2 client).
+
+🌚 [Next.js](https://github.com/zeit/next.js) - server-side rendering, file-based routing in the `pages` directory, and serverless build of of graphql API within `pages/api/graphql.ts` using [API Routes](https://github.com/zeit/next.js#api-routes).
+
+🦋 [Apollo](https://www.apollographql.com/docs/react/hooks-migration/) (React Hooks API) - GraphQL client for queries and mutations.
+
+🦄 [Prisma](https://prisma.io) - Next-generation database access and migration tools.
+
+💅 [Ant Design](https:/ant.design) - Beautiful, responsive, easy-to-use components.
+
+🚀[Render](https://render.com) - app and postgres deployment.
+
 # Quick Start
 
 Clone the repository
@@ -35,35 +50,6 @@ yarn
 yarn dev
 ```
 
-# Deploy
-
-Deploy to the cloud with [now](https://zeit.co/now) ([download](https://zeit.co/download))
-
-Install the `now` CLI
-
-```bash
-npm install --global now
-```
-
-Then deploy using
-
-```bash
-now
-```
-
-# Tech stack
-
-🤖 [Typescript](https://www.typescriptlang.org) - static types, used throughout the client and server (especially handy for the auto-generated prisma2 client).
-
-🌚 [Next 9.3](https://github.com/zeit/next.js) - server-side rendering, file-based routing in the `pages` directory, and serverless build of of graphql API within `pages/api/graphql.ts` using [API Routes](https://github.com/zeit/next.js#api-routes).
-
-🦋 [Apollo](https://www.apollographql.com/docs/react/hooks-migration/) (React Hooks API) - GraphQL client for queries and mutations.
-
-🦄 [Prisma](https://prisma.io) - Next-generation database access and migration tools.
-
-💅 [Ant Design](https:/ant.design) - Beautiful, responsive, easy-to-use components.
-
-▲ [ZEIT now](https://now.sh) - serverless monorepo deployment.
 
 # Development
 
